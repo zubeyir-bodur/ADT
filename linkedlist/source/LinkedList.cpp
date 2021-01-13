@@ -67,13 +67,13 @@ LinkedList<T>::LinkedList(const LinkedList<T>& list) {
 template<typename T>
 void LinkedList<T>::display() const {
     display(cout);
+    cout << endl;
 }
 
 template<typename T>
 void LinkedList<T>::display(ostream& out) const {
     for (Node<T>* cur = head; cur != nullptr; cur = cur->next)
         out << *cur;
-    out << endl;
 }
 
 /**
@@ -123,7 +123,8 @@ void LinkedList<T>::displayReverse(const Node<T>*& node) const {
         // since we can't dereference & assign constant pointers...
         const Node<T>* tmp = node->next;
         displayReverse(tmp);
-        cout << " <- " << node->item;
+        if (node->next == nullptr) cout << node->item;
+        else cout << " <- " << node->item;
     }
 }
 
@@ -157,7 +158,7 @@ template<typename T>
 T LinkedList<T>::get(int index) const {
     Node<T>* addr = getAddr(index);
     if (addr == nullptr)
-        return NULL;
+        return (T)NULL;
     else
         return addr->item;
 }

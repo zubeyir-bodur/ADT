@@ -1,6 +1,7 @@
 /**
  * Author: Zubeyir Bodur
  * Date: 9.1.2021
+ * Description : LL
  */
 #ifndef ADT_EXERCISE_LINKEDLIST_H
 #define ADT_EXERCISE_LINKEDLIST_H

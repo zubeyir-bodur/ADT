@@ -4,6 +4,8 @@
  */
 #include "linkedlist/header/LinkedList.h"
 #include "linkedlist/source/LinkedList.cpp"
+#include "queue/header/Queue.h"
+#include "queue/source/Queue.cpp"
 #include <string>
 
 int main() {
@@ -43,15 +45,29 @@ int main() {
     strList.display();
     LinkedList<string> reverseStr = strList.getReverse();
     reverseStr.display();
-    cout << list;
-    cout << "print the reversed version of the reverse : " << reverseStr;
+    cout << list << endl;
+    cout << "print the reversed version of the reverse : " << reverseStr << endl;
     copy.removeHead();
-    cout << copy;
+    cout << copy << endl;
     copy.sort();
-    cout << copy;
+    cout << copy << endl;
     list.sort();
-    cout << list;
+    cout << list << endl;
     strList.sort();
-    cout << strList;
+    cout << strList << endl;
+    strList.removeTail();
+    cout << strList << endl;
     cout << "END OF LL TEST" << endl;
+
+    // BEGINNING OF QUEUE TEST
+    cout << endl << "BEGINNING OF QUEUE TEST" << endl;
+    Queue<int> queue = Queue<int>();
+    queue.enqueue(1);
+    queue.enqueue(12);
+    queue.enqueue(-32);
+    cout << queue << endl;
+    cout << queue.getFront() << endl;
+    cout << queue.dequeue() << endl;
+    queue.display();
+    cout << "END OF QUEUE TEST" << endl;
 }
