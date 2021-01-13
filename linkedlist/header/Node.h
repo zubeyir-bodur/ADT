@@ -22,7 +22,7 @@ private:
     Node(const Node<T>& node);
     Node(const T& item, Node<T>* next = nullptr);
 
-    Node<T>& operator=(Node<T>& rvalue);
+    Node<T>& operator=(const Node<T>& rvalue);
 
     Node<T>* next;
     T item;

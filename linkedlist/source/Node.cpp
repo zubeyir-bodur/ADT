@@ -25,11 +25,9 @@ Node<T>::Node(const T& item, Node<T>* next) {
 }
 
 template<typename T>
-Node<T> &Node<T>::operator=(Node<T> &rvalue) {
+Node<T> &Node<T>::operator=(const Node<T> &rvalue) {
     if (this == &rvalue) // self assignment
         return *this;
-    else if (&rvalue == nullptr) // idk why i do this tbh
-        this = nullptr;
     else {
         this->next = nullptr; // copy only the item, not the rest of the links
         this->item = rvalue.item;

@@ -1,6 +1,6 @@
 /**
  * Author: Zubeyir Bodur
- * Date: 9.1.2021
+ * Date: 12.1.2021
  * Description: Queue that uses LL
  * head node is the front of the Q
  */
@@ -21,8 +21,10 @@ public:
     int getSize() const;
     void enqueue(const T& item);
     T dequeue();
-    T getFront() const;
+    T getFront() const noexcept(false);
     void display() const;
+
+    Queue<T>& operator=(const Queue<T>& rvalue);
 private:
     LinkedList<T> list;
 

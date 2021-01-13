@@ -1,6 +1,6 @@
 /**
  * Author: Zubeyir Bodur
- * Date: 9.1.2021
+ * Date: 12.1.2021
  */
 #include "../header/Queue.h"
 
@@ -38,8 +38,14 @@ T Queue<T>::dequeue() {
 }
 
 template<typename T>
-T Queue<T>::getFront() const {
-    return list.get(0);
+T Queue<T>::getFront() const noexcept(false) {
+    try {
+        T top = list.get(0);
+        return top;
+    }
+    catch (Exception exception) {
+        throw Exception("No front exists, queue is empty");
+    }
 }
 
 template<typename T>
@@ -50,13 +56,20 @@ void Queue<T>::display() const {
 
 template<typename T>
 void Queue<T>::display(ostream &out) const {
-    Queue<T> copy = Queue<T>();
-    for (int i = 0; i < getSize(); i++)
-        copy.enqueue(list.get(i));
+    Queue<T> copy = *this;
     while (!copy.isEmpty()) {
         if (copy.getSize() == getSize())
             out << copy.dequeue();
         else
             out << " <- " << copy.dequeue();
     }
+}
+
+template<typename T>
+Queue<T> &Queue<T>::operator=(const Queue<T> &rvalue) {
+    if (this == &rvalue) // self assignment
+        return *this;
+    else
+        this->list = rvalue.list; // assignment for LL is done so this works
+    return *this;
 }

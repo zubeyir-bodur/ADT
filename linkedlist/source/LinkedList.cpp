@@ -155,12 +155,14 @@ int LinkedList<T>::getSize() const {
  * @return the value at index
  */
 template<typename T>
-T LinkedList<T>::get(int index) const {
+T LinkedList<T>::get(int index) const noexcept(false) {
     Node<T>* addr = getAddr(index);
-    if (addr == nullptr)
-        return (T)NULL;
-    else
+    if (addr == nullptr) {
+        throw Exception("OutOfBoundsException");
+    }
+    else {
         return addr->item;
+    }
 }
 
 template<typename T>
@@ -267,16 +269,18 @@ void LinkedList<T>::addTail(const T &item) {
  * @param index
  */
 template <typename T>
-void LinkedList<T>::insert(const T &item, int index) {
+void LinkedList<T>::insert(const T &item, int index) noexcept(false) {
     if (index == 0) {
         Node<T>* tmp = head;
         head = new Node<T>(item, tmp);
     }
-    else if (index < getSize() + 1 && index > - 1) {
+    else if (index < getSize() + 1 && index > 0) {
         Node<T> *targetPrev = getAddr(index - 1);
         Node<T> *newNode = new Node<T>(item, targetPrev->next);
         targetPrev->next = newNode;
     }
+    else
+        throw Exception("OutOfBoundsException");
     size++;
 }
 
@@ -316,14 +320,21 @@ int LinkedList<T>::indexOf(const T &item) {
  */
 template<typename T>
 bool LinkedList<T>::removeHead() {
-    if (head != nullptr) {
+    if (head == nullptr)
+        return false;
+    else if (head->next == nullptr) {
+        delete head;
+        head = nullptr; // solve the dangling ptr problem
+        size--;
+        return true;
+    }
+    else {
         Node<T>* tmp = head;
         head = head->next;
         delete tmp;
         size--;
         return true;
     }
-    return false;
 }
 
 /**
@@ -382,6 +393,21 @@ void LinkedList<T>::sort(Node<T>*& node) {
             sort(min->next);
         }
         node = min; // new head node is the min node
+    }
+}
+
+template<typename T>
+LinkedList<T> &LinkedList<T>::operator=(const LinkedList<T> &rvalue) {
+    if (this == &rvalue) // self assignment
+        return *this;
+    else {
+        head = nullptr;
+        size = 0;
+        if (!rvalue.isEmpty()) {
+            for (Node<T> *cur = rvalue.head; cur != nullptr; cur = cur->next)
+                addTail(cur->item);
+        }
+        return *this;
     }
 }
 

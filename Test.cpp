@@ -6,10 +6,12 @@
 #include "linkedlist/source/LinkedList.cpp"
 #include "queue/header/Queue.h"
 #include "queue/source/Queue.cpp"
+#include "stack/header/Stack.h"
+#include "stack/source/Stack.cpp"
 #include <string>
 
 int main() {
-    // TEST OF LINKED LISTS
+    // TEST OF LINKED LIST
     cout << "BEGINNING OF LL TEST" << endl;
     LinkedList<int> list = LinkedList<int>();
     list.display();
@@ -59,15 +61,41 @@ int main() {
     cout << strList << endl;
     cout << "END OF LL TEST" << endl;
 
-    // BEGINNING OF QUEUE TEST
+    // TEST OF QUEUE
     cout << endl << "BEGINNING OF QUEUE TEST" << endl;
     Queue<int> queue = Queue<int>();
     queue.enqueue(1);
     queue.enqueue(12);
     queue.enqueue(-32);
     cout << queue << endl;
-    cout << queue.getFront() << endl;
-    cout << queue.dequeue() << endl;
+    cout << "Front : " << queue.getFront() << endl;
+    cout << "Dequeue 1st : " << queue.dequeue() << endl;
     queue.display();
+    cout << "Dequeue 2nd : " << queue.dequeue() << endl;
+    queue.display();
+    cout << "Dequeue 3rd : " << queue.dequeue() << endl;
+    queue.display();
+    try {
+        queue.dequeue();
+    }
+    catch (Exception e) {
+        cout << e.what() << endl;
+    }
     cout << "END OF QUEUE TEST" << endl;
+
+    // TEST OF STACK
+    cout << endl << "BEGINNING OF STACK TEST" << endl;
+    Stack<int> stack = Stack<int>();
+    stack.push(-2);
+    stack.display();
+    stack.push(6);
+    stack.push(10);
+    stack.push(43);
+    stack.push(7);
+    cout << stack << endl;
+    cout << "Pop : " << stack.pop() << endl;
+    stack.display();
+    cout << "Final stack size : " << stack.getSize() << endl;
+    cout << "Stack top : " << stack.getTop() << endl;
+    cout << "END OF STACK TEST" << endl;
 }

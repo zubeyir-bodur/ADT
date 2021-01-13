@@ -6,6 +6,7 @@
 #ifndef ADT_EXERCISE_LINKEDLIST_H
 #define ADT_EXERCISE_LINKEDLIST_H
 #include "Node.h"
+#include "../../Exception.h"
 
 template <typename T>
 class LinkedList {
@@ -22,19 +23,20 @@ public:
     void displayReverse() const;
     bool isEmpty() const;
     int getSize() const;
-    T get(int index) const;
+    T get(int index) const noexcept(false);
     LinkedList<T> getReverse() const;
     void reverse();
     void reverseR();
     void addHead(const T& item);
     void addTail(const T& item);
-    void insert(const T& item, int index);
+    void insert(const T& item, int index) noexcept(false);
     bool contains(const T& item);
     int indexOf(const T& item);
     bool removeHead();
     bool removeTail();
     void sort();
 
+    LinkedList<T>& operator=(const LinkedList<T>& rvalue);
 private:
     Node<T>* head;
     int size;
