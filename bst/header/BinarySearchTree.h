@@ -9,9 +9,8 @@
 template<typename Key>
 class BinarySearchTree {
     friend ostream& operator<<(ostream& out, const BinarySearchTree<Key>& bst) {
-        void (*visit)(const Key&, const int&, ostream&) = bst.display;
         TNode<Key>* tmp = bst.root;
-        bst.inorder(tmp, visit, out);
+        bst.printNode(tmp, out);
         return out;
     };
 public:
@@ -22,18 +21,24 @@ public:
     void insert(const Key& key);
     void remove(const Key& key);
     Key retrieve() const;
-    void display() const;
+    void display();
     template<typename Function> void preorderTraverse(Function visit);
     template<typename Function> void inorderTraverse(Function visit);
     template<typename Function> void postorderTraverse(Function visit);
 
-    static void display(const Key& key, const int& count, ostream& out);
-    static void display(const Key& key, const int& count);
+    // static functions for traversing the tree
+    static void printPair(const Key& key, const int& count);
+
+    // overloaded operators
     BinarySearchTree<Key>& operator=(const BinarySearchTree<Key>& rvalue);
 private:
+    // properties
     TNode<Key>* root;
-    template<typename Function> void preorder(TNode<Key>*& node, Function visit, ostream& out) const;
-    template<typename Function> void inorder(TNode<Key>*& node, Function visit, ostream& out) const;
-    template<typename Function> void postorder(TNode<Key>*& node, Function visit, ostream& out) const;
+
+    // private helper functions
+    void printNode(TNode<Key>*& node, ostream& out) const;
+    template<typename Function> void preorder(TNode<Key>*& node, Function visit);
+    template<typename Function> void inorder(TNode<Key>*& node, Function visit);
+    template<typename Function> void postorder(TNode<Key>*& node, Function visit);
 };
 #endif

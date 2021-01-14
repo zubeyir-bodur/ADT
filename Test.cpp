@@ -37,6 +37,8 @@ int main() {
     strList.display();
     strList.reverseR();
     strList.display();
+    strList.reverse();
+    strList.display();
     cout << "contains \"kinda fun\" : " << (strList.contains("kinda fun") ? "true" : "false") << endl;
     list.display();
     cout << strList.get(1) << endl;
@@ -100,8 +102,6 @@ int main() {
     cout << endl << "BEGINNING OF BST TEST" << endl;
     BinarySearchTree<string> searchTree = BinarySearchTree<string>();
     cout << searchTree << endl;
-    //searchTree.isEmpty()
-    void (*visit)(const string&, const int&, ostream&) = searchTree.display;
-    searchTree.inorderTraverse(visit);
+    searchTree.display();
     cout << "END OF BST TEST" << endl;
 }

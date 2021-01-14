@@ -196,8 +196,13 @@ LinkedList<T> LinkedList<T>::getReverse() const {
 template<typename T>
 void LinkedList<T>::reverse() {
     LNode<T>* tail = getTail();
-    for (LNode<T>* cur = head; cur != tail; cur = cur->next) {
-        //TODO
+    LNode<T>* tmp = head;
+    while (head != tail) {
+        head = head->next;
+        LNode<T>* tailNext = tail->next;
+        tmp->next = tailNext;
+        tail->next = tmp;
+        tmp = head;
     }
 }
 
