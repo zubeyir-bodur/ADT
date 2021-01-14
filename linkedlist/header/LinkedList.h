@@ -5,7 +5,7 @@
  */
 #ifndef ADT_EXERCISE_LINKEDLIST_H
 #define ADT_EXERCISE_LINKEDLIST_H
-#include "Node.h"
+#include "LNode.h"
 #include "../../Exception.h"
 
 template <typename T>
@@ -38,16 +38,16 @@ public:
 
     LinkedList<T>& operator=(const LinkedList<T>& rvalue);
 private:
-    Node<T>* head;
+    LNode<T>* head;
     int size;
 
     void display(ostream& out) const;
-    void display(const Node<T>*&) const;
-    void displayReverse(const Node<T>*& node) const;
-    Node<T>* getTail() const;
-    Node<T>* getAddr(int index) const;
-    void reverse(Node<T>*& node, Node<T>*& tail);
+    void display(const LNode<T>*&) const;
+    void displayReverse(const LNode<T>*& node) const;
+    LNode<T>* getTail() const;
+    LNode<T>* getAddr(int index) const;
+    void reverse(LNode<T>*& node, LNode<T>*& tail);
     void destroyList();
-    void sort(Node<T>*& node);
+    void sort(LNode<T>*& node);
 };
 #endif

@@ -67,9 +67,12 @@ template<typename T>
 void Stack<T>::display(ostream &out) const {
     Stack<T> copy = *this;
     while (!copy.isEmpty()) {
-        if (copy.getSize() == getSize())
-            out << copy.pop() << " <- Stack Top" << endl;
+        out << "|\t" << copy.pop() << "\t|";
+        if (copy.getSize() == getSize() - 1)
+            out << " <- Stack Top" << endl;
         else
-            out << copy.pop() << endl;
+            out << endl;
+        if (copy.getSize() == 0)
+            out << "-----------------";
     }
 }

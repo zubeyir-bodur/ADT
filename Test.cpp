@@ -2,13 +2,10 @@
  * Author: Zubeyir Bodur
  * Date: 10.1.2021
  */
-#include "linkedlist/header/LinkedList.h"
 #include "linkedlist/source/LinkedList.cpp"
-#include "queue/header/Queue.h"
 #include "queue/source/Queue.cpp"
-#include "stack/header/Stack.h"
 #include "stack/source/Stack.cpp"
-#include <string>
+#include "bst/source/BinarySearchTree.cpp"
 
 int main() {
     // TEST OF LINKED LIST
@@ -98,4 +95,13 @@ int main() {
     cout << "Final stack size : " << stack.getSize() << endl;
     cout << "Stack top : " << stack.getTop() << endl;
     cout << "END OF STACK TEST" << endl;
+
+    // TEST OF BST
+    cout << endl << "BEGINNING OF BST TEST" << endl;
+    BinarySearchTree<string> searchTree = BinarySearchTree<string>();
+    cout << searchTree << endl;
+    //searchTree.isEmpty()
+    void (*visit)(const string&, const int&, ostream&) = searchTree.display;
+    searchTree.inorderTraverse(visit);
+    cout << "END OF BST TEST" << endl;
 }

@@ -2,30 +2,30 @@
  * Author: Zubeyir Bodur
  * Date: 9.1.2021
  */
-#include "../header/Node.h"
+#include "../header/LNode.h"
 template <typename T>
-Node<T>::Node() {
+LNode<T>::LNode() {
    next = nullptr;
    item = NULL;
 }
 
 template<typename T>
-Node<T>::~Node() {}
+LNode<T>::~LNode() {}
 
 template<typename T>
-Node<T>::Node(const Node<T>& node) {
+LNode<T>::LNode(const LNode<T>& node) {
     next = nullptr;
     item = node.item;
 }
 
 template<typename T>
-Node<T>::Node(const T& item, Node<T>* next) {
+LNode<T>::LNode(const T& item, LNode<T>* next) {
     this->next = next;
     this->item = item;
 }
 
 template<typename T>
-Node<T> &Node<T>::operator=(const Node<T> &rvalue) {
+LNode<T> &LNode<T>::operator=(const LNode<T> &rvalue) {
     if (this == &rvalue) // self assignment
         return *this;
     else {

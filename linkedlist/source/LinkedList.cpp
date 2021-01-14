@@ -4,7 +4,7 @@
  * Date: 9.1.2021
  */
 #include "../header/LinkedList.h"
-#include "Node.cpp"
+#include "LNode.cpp"
 
 template <typename T>
 LinkedList<T>::LinkedList() {
@@ -34,10 +34,10 @@ void LinkedList<T>::destroyList() {
  * @return the address of the tail node, nullptr if LL is empty
  */
 template<typename T>
-Node<T>* LinkedList<T>::getTail() const {
+LNode<T>* LinkedList<T>::getTail() const {
     if (head == nullptr)
         return nullptr;
-    for (Node<T>* cur = head; cur != nullptr; cur = cur->next) {
+    for (LNode<T>* cur = head; cur != nullptr; cur = cur->next) {
         if (cur->next == nullptr)
             return cur;
     }
@@ -55,7 +55,7 @@ LinkedList<T>::LinkedList(const LinkedList<T>& list) {
     head = nullptr;
     size = 0;
     if (!list.isEmpty()) {
-        for (Node<T>* cur = list.head; cur != nullptr; cur = cur->next)
+        for (LNode<T>* cur = list.head; cur != nullptr; cur = cur->next)
             addTail(cur->item);
     }
 }
@@ -72,7 +72,7 @@ void LinkedList<T>::display() const {
 
 template<typename T>
 void LinkedList<T>::display(ostream& out) const {
-    for (Node<T>* cur = head; cur != nullptr; cur = cur->next)
+    for (LNode<T>* cur = head; cur != nullptr; cur = cur->next)
         out << *cur;
 }
 
@@ -82,7 +82,7 @@ void LinkedList<T>::display(ostream& out) const {
  */
 template<typename T>
 void LinkedList<T>::displayR() const {
-    const Node<T>* tmp = head;
+    const LNode<T>* tmp = head;
     display(tmp);
     cout << endl;
 }
@@ -92,10 +92,10 @@ void LinkedList<T>::displayR() const {
  * @tparam T
  */
 template<typename T>
-void LinkedList<T>::display(const Node<T>*& node) const {
+void LinkedList<T>::display(const LNode<T>*& node) const {
     if (node != nullptr) {
         cout << *node;
-        const Node<T>* tmp = node->next;
+        const LNode<T>* tmp = node->next;
         display(tmp);
     }
 }
@@ -106,7 +106,7 @@ void LinkedList<T>::display(const Node<T>*& node) const {
  */
 template<typename T>
 void LinkedList<T>::displayReverse() const {
-    const Node<T>* tmp = head;
+    const LNode<T>* tmp = head;
     displayReverse(tmp);
     cout << endl;
 }
@@ -116,12 +116,12 @@ void LinkedList<T>::displayReverse() const {
  * @tparam T
  */
 template<typename T>
-void LinkedList<T>::displayReverse(const Node<T>*& node) const {
+void LinkedList<T>::displayReverse(const LNode<T>*& node) const {
     if (node != nullptr) {
         // Since the parameter is constant we need to
         // initialize a new local variable for the next item
         // since we can't dereference & assign constant pointers...
-        const Node<T>* tmp = node->next;
+        const LNode<T>* tmp = node->next;
         displayReverse(tmp);
         if (node->next == nullptr) cout << node->item;
         else cout << " <- " << node->item;
@@ -156,7 +156,7 @@ int LinkedList<T>::getSize() const {
  */
 template<typename T>
 T LinkedList<T>::get(int index) const noexcept(false) {
-    Node<T>* addr = getAddr(index);
+    LNode<T>* addr = getAddr(index);
     if (addr == nullptr) {
         throw Exception("OutOfBoundsException");
     }
@@ -166,9 +166,9 @@ T LinkedList<T>::get(int index) const noexcept(false) {
 }
 
 template<typename T>
-Node<T> *LinkedList<T>::getAddr(int index) const {
+LNode<T> *LinkedList<T>::getAddr(int index) const {
     if (index < getSize() && index > -1) {
-        Node<T> *target = head;
+        LNode<T> *target = head;
         for (int i = 0; i < index; i++)
             target = target->next;
         return target;
@@ -184,7 +184,7 @@ Node<T> *LinkedList<T>::getAddr(int index) const {
 template<typename T>
 LinkedList<T> LinkedList<T>::getReverse() const {
     auto list = LinkedList<T>();
-    for (Node<T>* cur = head; cur != nullptr; cur = cur->next)
+    for (LNode<T>* cur = head; cur != nullptr; cur = cur->next)
         list.addHead(cur->item);
     return list;
 }
@@ -195,9 +195,9 @@ LinkedList<T> LinkedList<T>::getReverse() const {
  */
 template<typename T>
 void LinkedList<T>::reverse() {
-    Node<T>* tail = getTail();
-    for (Node<T>* cur = head; cur != tail; cur = cur->next) {
-
+    LNode<T>* tail = getTail();
+    for (LNode<T>* cur = head; cur != tail; cur = cur->next) {
+        //TODO
     }
 }
 
@@ -207,8 +207,8 @@ void LinkedList<T>::reverse() {
  */
 template<typename T>
 void LinkedList<T>::reverseR() {
-    Node<T>* tmp = head;
-    Node<T>* tail = getTail();
+    LNode<T>* tmp = head;
+    LNode<T>* tail = getTail();
     reverse(tmp, tail);
     head = tail;
 }
@@ -220,9 +220,9 @@ void LinkedList<T>::reverseR() {
  * @param tail
  */
 template<typename T>
-void LinkedList<T>::reverse(Node<T> *&node, Node<T> *&tail) {
+void LinkedList<T>::reverse(LNode<T> *&node, LNode<T> *&tail) {
     if (node != tail) {
-        Node<T>* tailNext = tail->next;
+        LNode<T>* tailNext = tail->next;
         tail->next = node;
         reverse(node->next, tail);
         node->next = tailNext;
@@ -238,10 +238,10 @@ void LinkedList<T>::reverse(Node<T> *&node, Node<T> *&tail) {
 template<typename T>
 void LinkedList<T>::addHead(const T &item) {
     if (head == nullptr)
-        head = new Node<T>(item);
+        head = new LNode<T>(item);
     else {
-        Node<T>* oldHead = head;
-        head = new Node<T>(item, oldHead);
+        LNode<T>* oldHead = head;
+        head = new LNode<T>(item, oldHead);
     }
     size++;
 }
@@ -254,11 +254,11 @@ void LinkedList<T>::addHead(const T &item) {
  */
 template <typename T>
 void LinkedList<T>::addTail(const T &item) {
-    Node<T>* tail = getTail();
+    LNode<T>* tail = getTail();
     if (tail != nullptr) // if the list is not empty
-        tail->next = new Node<T>(item);
+        tail->next = new LNode<T>(item);
     else
-        head = new Node<T>(item);
+        head = new LNode<T>(item);
     size++;
 }
 
@@ -271,12 +271,12 @@ void LinkedList<T>::addTail(const T &item) {
 template <typename T>
 void LinkedList<T>::insert(const T &item, int index) noexcept(false) {
     if (index == 0) {
-        Node<T>* tmp = head;
-        head = new Node<T>(item, tmp);
+        LNode<T>* tmp = head;
+        head = new LNode<T>(item, tmp);
     }
     else if (index < getSize() + 1 && index > 0) {
-        Node<T> *targetPrev = getAddr(index - 1);
-        Node<T> *newNode = new Node<T>(item, targetPrev->next);
+        LNode<T> *targetPrev = getAddr(index - 1);
+        LNode<T> *newNode = new LNode<T>(item, targetPrev->next);
         targetPrev->next = newNode;
     }
     else
@@ -305,7 +305,7 @@ bool LinkedList<T>::contains(const T &item) {
 template<typename T>
 int LinkedList<T>::indexOf(const T &item) {
     int index = 0;
-    for (Node<T>* cur = head; cur != nullptr; cur = cur->next) {
+    for (LNode<T>* cur = head; cur != nullptr; cur = cur->next) {
         if (cur->item == item)
             return index;
         index++;
@@ -329,7 +329,7 @@ bool LinkedList<T>::removeHead() {
         return true;
     }
     else {
-        Node<T>* tmp = head;
+        LNode<T>* tmp = head;
         head = head->next;
         delete tmp;
         size--;
@@ -345,7 +345,7 @@ bool LinkedList<T>::removeHead() {
 template<typename T>
 bool LinkedList<T>::removeTail() {
     if (size > 1) {
-        Node<T> *tailPrev = getAddr(size - 2);
+        LNode<T> *tailPrev = getAddr(size - 2);
         delete tailPrev->next;
         tailPrev->next = nullptr;
         size--;
@@ -370,23 +370,23 @@ void LinkedList<T>::sort() {
  * @tparam T
  */
 template<typename T>
-void LinkedList<T>::sort(Node<T>*& node) {
+void LinkedList<T>::sort(LNode<T>*& node) {
     if (node != nullptr && node->next != nullptr) { // don't sort an empty LL or one item LL
         // find min
-        Node<T>* min = node;
-        for (Node<T>* cur = node; cur != nullptr; cur = cur->next) {
+        LNode<T>* min = node;
+        for (LNode<T>* cur = node; cur != nullptr; cur = cur->next) {
             if (cur->item < min->item)
                 min = cur;
         }
         // find the node before min
-        Node<T>* minPrev = nullptr;
-        for (Node<T>* cur = node; cur != nullptr; cur = cur->next) {
+        LNode<T>* minPrev = nullptr;
+        for (LNode<T>* cur = node; cur != nullptr; cur = cur->next) {
             if (cur->next == min)
                 minPrev = cur;
         }
         if (min != nullptr) {
             if (minPrev != nullptr) {
-                Node<T>* tmp = min->next;
+                LNode<T>* tmp = min->next;
                 min->next = node;
                 minPrev->next = tmp;
             }
@@ -404,7 +404,7 @@ LinkedList<T> &LinkedList<T>::operator=(const LinkedList<T> &rvalue) {
         head = nullptr;
         size = 0;
         if (!rvalue.isEmpty()) {
-            for (Node<T> *cur = rvalue.head; cur != nullptr; cur = cur->next)
+            for (LNode<T> *cur = rvalue.head; cur != nullptr; cur = cur->next)
                 addTail(cur->item);
         }
         return *this;
