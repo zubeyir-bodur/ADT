@@ -5,27 +5,48 @@
 #include "../header/BinarySearchTree.h"
 template<typename T>
 BinarySearchTree<T>::BinarySearchTree() {
-
+    root = nullptr;
 }
 
 template<typename T>
 BinarySearchTree<T>::~BinarySearchTree() {
+    destroyTree(root);
+}
 
+template<typename Key>
+void BinarySearchTree<Key>::destroyTree(TNode<Key> *& node) {
+    if (node != nullptr) {
+        destroyTree(node->leftChild);
+        destroyTree(node->rightChild);
+        delete node;
+        node = nullptr;
+    }
 }
 
 template<typename T>
 BinarySearchTree<T>::BinarySearchTree(const BinarySearchTree<T> &bst) {
+    root = nullptr;
+    copyTree(root, bst.root);
+}
 
+template<typename Key>
+void BinarySearchTree<Key>::copyTree(TNode<Key> *&target, const TNode<Key> *&source) {
+    if (source != nullptr){
+        target = new TNode<Key>(source);
+        copyTree(target->rightChild, source->rightChild);
+        copyTree(target->leftChild, source->leftChild);
+    }
 }
 
 template<typename T>
 BinarySearchTree<T> &BinarySearchTree<T>::operator=(const BinarySearchTree<T> &rvalue) {
-    return NULL;
+    copyTree(this->root, rvalue.root);
+    return *this;
 }
 
 template<typename Key>
 bool BinarySearchTree<Key>::isEmpty() const {
-    return false;
+    return root == nullptr;
 }
 
 template<typename Key>
@@ -39,8 +60,8 @@ void BinarySearchTree<Key>::remove(const Key &key) {
 }
 
 template<typename Key>
-Key BinarySearchTree<Key>::retrieve() const {
-    return nullptr;
+int BinarySearchTree<Key>::retrieve(const Key &key) const {
+    return 0;
 }
 
 /**
@@ -114,5 +135,3 @@ void BinarySearchTree<Key>::printNode(TNode<Key>*& node, ostream &out) const {
         printNode(node->rightChild, out);
     }
 }
-
-

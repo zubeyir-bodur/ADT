@@ -20,7 +20,7 @@ public:
     bool isEmpty() const;
     void insert(const Key& key);
     void remove(const Key& key);
-    Key retrieve() const;
+    int retrieve(const Key& key) const;
     void display();
     template<typename Function> void preorderTraverse(Function visit);
     template<typename Function> void inorderTraverse(Function visit);
@@ -36,6 +36,8 @@ private:
     TNode<Key>* root;
 
     // private helper functions
+    void destroyTree(TNode<Key> *& node);
+    void copyTree(TNode<Key>*& target, const TNode<Key>*& source);
     void printNode(TNode<Key>*& node, ostream& out) const;
     template<typename Function> void preorder(TNode<Key>*& node, Function visit);
     template<typename Function> void inorder(TNode<Key>*& node, Function visit);
