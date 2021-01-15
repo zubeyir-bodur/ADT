@@ -13,9 +13,6 @@ TNode<Key>::TNode() {
 }
 
 template<typename Key>
-TNode<Key>::~TNode() {}
-
-template<typename Key>
 TNode<Key>::TNode(const TNode<Key> &tNode) {
     this->leftChild = nullptr;
     this->rightChild = nullptr;

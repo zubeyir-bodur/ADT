@@ -100,8 +100,9 @@ int main() {
 
     // TEST OF BST
     cout << endl << "BEGINNING OF BST TEST" << endl;
-    BinarySearchTree<string> searchTree = BinarySearchTree<string>();
+    BinarySearchTree<int> searchTree;
     cout << searchTree << endl;
+    searchTree.insert(12);
     searchTree.display();
     cout << "END OF BST TEST" << endl;
 }

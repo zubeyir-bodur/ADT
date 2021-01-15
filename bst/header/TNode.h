@@ -15,7 +15,6 @@ class TNode {
     };
 private:
     TNode();
-    ~TNode();
     TNode(const TNode<Key>& tNode);
     TNode(const Key& key,
           const int& count = 1,
