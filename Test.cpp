@@ -106,22 +106,24 @@ int main() {
     cout << searchTree << endl;
     searchTree.insert("this tree will be sorted");
     cout << searchTree << endl;
-    searchTree.insert("if");
+    searchTree.insert("z");
     cout << searchTree << endl;
-    searchTree.insert("it");
+    searchTree.insert("b");
     cout << searchTree << endl;
-    searchTree.insert("is");
+    searchTree.insert("i");
     cout << searchTree << endl;
-    searchTree.insert("printed");
+    searchTree.insert("x");
     cout << searchTree << endl;
-    searchTree.insert("in");
+    searchTree.insert("k");
     cout << searchTree << endl;
-    searchTree.insert("inorder traversal");
+    searchTree.insert("ff");
     cout << searchTree << endl;
     searchTree.insert("this tree will be sorted");
     searchTree.display();
     cout << "this tree will be sorted - appears : "
             << searchTree.retrieve("this tree will be sorted")
             << " times" << endl;
+    searchTree.remove("i");
+    searchTree.display();
     cout << endl << "END OF BST TEST" << endl;
 }

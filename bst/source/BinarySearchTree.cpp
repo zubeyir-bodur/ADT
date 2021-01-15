@@ -81,15 +81,42 @@ void BinarySearchTree<Key>::remove(const Key &key, TNode<Key> *&node) {
             remove(key, node->leftChild);
         else if (key > node->key)
             remove(key, node->rightChild);
-        else {
+        else
             removeNode(node);
-        }
     }
 }
 
 template<typename Key>
 void BinarySearchTree<Key>::removeNode(TNode<Key> *&node) {
+    TNode<Key>* tmp;
+    if (node->isLeaf()) {
+        delete node;
+        node = nullptr;
+    }
+    else if (node->hasLeftOnly()) {
+        tmp = node->leftChild;
+        delete node;
+        node = tmp;
+    }
+    else if (node->hasRightOnly()) {
+        tmp = node->rightChild;
+        delete node;
+        node = tmp;
+    }
+    else if (node->hasTwo()) {
+        tmp = findLeftmost(node->rightChild);
+        node->key = tmp->key;
+        delete tmp;
+        tmp = nullptr;
+    }
+}
 
+template<typename Key>
+TNode<Key> *BinarySearchTree<Key>::findLeftmost(TNode<Key> *&node) {
+    if (node->leftChild != nullptr)
+        findLeftmost(node->leftChild);
+    else
+        return node;
 }
 
 /**
