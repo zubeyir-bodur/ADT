@@ -13,10 +13,7 @@ TNode<Key>::TNode() {
 }
 
 template<typename Key>
-TNode<Key>::~TNode() {
-    if (leftChild) delete leftChild;
-    if (rightChild) delete rightChild;
-}
+TNode<Key>::~TNode() {}
 
 template<typename Key>
 TNode<Key>::TNode(const TNode<Key> &tNode) {

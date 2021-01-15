@@ -10,7 +10,6 @@ using namespace std;
 
 template <typename Key>
 class TNode {
-private:
     friend ostream& operator<<(ostream& out, const TNode<Key>& node) {
         return node.display(out);
     };

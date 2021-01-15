@@ -3,13 +3,13 @@
  * Date: 14.1.2021
  */
 #include "../header/BinarySearchTree.h"
-template<typename T>
-BinarySearchTree<T>::BinarySearchTree() {
+template<typename Key>
+BinarySearchTree<Key>::BinarySearchTree() {
     root = nullptr;
 }
 
-template<typename T>
-BinarySearchTree<T>::~BinarySearchTree() {
+template<typename Key>
+BinarySearchTree<Key>::~BinarySearchTree() {
     destroyTree(root);
 }
 
@@ -23,23 +23,23 @@ void BinarySearchTree<Key>::destroyTree(TNode<Key> *& node) {
     }
 }
 
-template<typename T>
-BinarySearchTree<T>::BinarySearchTree(const BinarySearchTree<T> &bst) {
+template<typename Key>
+BinarySearchTree<Key>::BinarySearchTree(const BinarySearchTree<Key> &bst) {
     root = nullptr;
     copyTree(root, bst.root);
 }
 
 template<typename Key>
 void BinarySearchTree<Key>::copyTree(TNode<Key> *&target, const TNode<Key> *&source) {
-    if (source != nullptr){
+    if (source != nullptr) {
         target = new TNode<Key>(source);
         copyTree(target->rightChild, source->rightChild);
         copyTree(target->leftChild, source->leftChild);
     }
 }
 
-template<typename T>
-BinarySearchTree<T> &BinarySearchTree<T>::operator=(const BinarySearchTree<T> &rvalue) {
+template<typename Key>
+BinarySearchTree<Key> &BinarySearchTree<Key>::operator=(const BinarySearchTree<Key> &rvalue) {
     copyTree(this->root, rvalue.root);
     return *this;
 }

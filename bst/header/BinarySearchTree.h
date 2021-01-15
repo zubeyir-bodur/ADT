@@ -6,6 +6,7 @@
 #ifndef ADT_EXERCISE_BINARYSEARCHTREE_H
 #define ADT_EXERCISE_BINARYSEARCHTREE_H
 #include "TNode.h"
+#include "../../Exception.h"
 template<typename Key>
 class BinarySearchTree {
     friend ostream& operator<<(ostream& out, const BinarySearchTree<Key>& bst) {
