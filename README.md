@@ -3,7 +3,7 @@ Bunch of abstract data types in C++. They (will) include pointer-based implement
 - Linked List - complete
 - Stack - complete
 - Queue - complete
-- Binary Search Tree
+- Binary Search Tree - complete
 - AVL Tree
 - 2-3 Tree
 - 2-3-4 Tree
