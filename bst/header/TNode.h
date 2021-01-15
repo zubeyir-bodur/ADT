@@ -11,7 +11,8 @@ using namespace std;
 template <typename Key>
 class TNode {
     friend ostream& operator<<(ostream& out, const TNode<Key>& node) {
-        return node.display(out);
+        node.display(out);
+        return out;
     };
 private:
     TNode();

@@ -2,6 +2,8 @@
  * Author: Zubeyir Bodur
  * Date: 14.1.2021
  */
+#include "../header/TNode.h"
+#include "TNode.cpp"
 #include "../header/BinarySearchTree.h"
 template<typename Key>
 BinarySearchTree<Key>::BinarySearchTree() {
@@ -26,13 +28,14 @@ void BinarySearchTree<Key>::destroyTree(TNode<Key>*& node) {
 template<typename Key>
 BinarySearchTree<Key>::BinarySearchTree(const BinarySearchTree<Key> &bst) {
     root = nullptr;
-    copyTree(root, bst.root);
+    TNode<Key>* tmp = bst.root;
+    copyTree(root, tmp);
 }
 
 template<typename Key>
-void BinarySearchTree<Key>::copyTree(TNode<Key> *&target, const TNode<Key> *&source) {
+void BinarySearchTree<Key>::copyTree(TNode<Key> *&target, TNode<Key> *&source) const {
     if (source != nullptr) {
-        target = new TNode<Key>(source);
+        target = new TNode<Key>(*source);
         copyTree(target->rightChild, source->rightChild);
         copyTree(target->leftChild, source->leftChild);
     }
@@ -97,12 +100,12 @@ void BinarySearchTree<Key>::removeNode(TNode<Key> *&node) {
  * @return
  */
 template<typename Key>
-int BinarySearchTree<Key>::retrieve(const Key &key) const {
+int BinarySearchTree<Key>::retrieve(const Key &key) {
     return retrieve(key, root);
 }
 
 template<typename Key>
-int BinarySearchTree<Key>::retrieve(const Key &key, TNode<Key> *&node) const {
+int BinarySearchTree<Key>::retrieve(const Key &key, TNode<Key> *&node) {
     if (node != nullptr) {
         if (key < node->key)
             return retrieve(key, node->leftChild);
@@ -181,7 +184,7 @@ template<typename Key>
 void BinarySearchTree<Key>::printNode(TNode<Key>*& node, ostream &out) const {
     if (node != nullptr) {
         printNode(node->leftChild, out);
-        out << node << endl;
+        out << *node << endl;
         printNode(node->rightChild, out);
     }
 }

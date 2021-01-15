@@ -21,7 +21,7 @@ public:
     bool isEmpty() const;
     void insert(const Key& key);
     void remove(const Key& key);
-    int retrieve(const Key& key) const;
+    int retrieve(const Key& key);
     void display();
     template<typename Function> void preorderTraverse(Function visit);
     template<typename Function> void inorderTraverse(Function visit);
@@ -38,11 +38,11 @@ private:
 
     // private helper functions
     void destroyTree(TNode<Key> *& node);
-    void copyTree(TNode<Key>*& target, const TNode<Key>*& source);
+    void copyTree(TNode<Key>*& target, TNode<Key>*& source) const;
     void insert(const Key& key, TNode<Key>*& node);
     void remove(const Key& key, TNode<Key>*& node);
     void removeNode(TNode<Key>*& node);
-    int retrieve(const Key& key, TNode<Key>*& node) const;
+    int retrieve(const Key& key, TNode<Key>*& node);
     void printNode(TNode<Key>*& node, ostream& out) const;
     template<typename Function> void preorder(TNode<Key>*& node, Function visit);
     template<typename Function> void inorder(TNode<Key>*& node, Function visit);

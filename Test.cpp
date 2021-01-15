@@ -100,9 +100,28 @@ int main() {
 
     // TEST OF BST
     cout << endl << "BEGINNING OF BST TEST" << endl;
-    BinarySearchTree<int> searchTree;
+    BinarySearchTree<string> searchTree = BinarySearchTree<string>();
     cout << searchTree << endl;
-    searchTree.insert(12);
+    searchTree.insert("first things first");
+    cout << searchTree << endl;
+    searchTree.insert("this tree will be sorted");
+    cout << searchTree << endl;
+    searchTree.insert("if");
+    cout << searchTree << endl;
+    searchTree.insert("it");
+    cout << searchTree << endl;
+    searchTree.insert("is");
+    cout << searchTree << endl;
+    searchTree.insert("printed");
+    cout << searchTree << endl;
+    searchTree.insert("in");
+    cout << searchTree << endl;
+    searchTree.insert("inorder traversal");
+    cout << searchTree << endl;
+    searchTree.insert("this tree will be sorted");
     searchTree.display();
-    cout << "END OF BST TEST" << endl;
+    cout << "this tree will be sorted - appears : "
+            << searchTree.retrieve("this tree will be sorted")
+            << " times" << endl;
+    cout << endl << "END OF BST TEST" << endl;
 }
