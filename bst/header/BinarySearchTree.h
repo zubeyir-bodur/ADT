@@ -42,7 +42,7 @@ private:
     void insert(const Key& key, TNode<Key>*& node);
     void remove(const Key& key, TNode<Key>*& node);
     void removeNode(TNode<Key>*& node);
-    TNode<Key>* findLeftmost(TNode<Key>*& node);
+    TNode<Key>* findLeftmost(TNode<Key>*& node, TNode<Key>*& parent);
     int retrieve(const Key& key, TNode<Key>*& node);
     void printNode(TNode<Key>*& node, ostream& out) const;
     template<typename Function> void preorder(TNode<Key>*& node, Function visit);

@@ -69,11 +69,23 @@ void BinarySearchTree<Key>::insert(const Key &key, TNode<Key> *&node) {
         node->count++;
 }
 
+/**
+ * Removes the given key from the BST
+ * @tparam Key
+ * @param key
+ */
 template<typename Key>
 void BinarySearchTree<Key>::remove(const Key &key) {
     remove(key, root);
 }
 
+/**
+ * Private recursive function that finds the
+ * removal position for a given key and removes the Node
+ * @tparam Key
+ * @param key
+ * @param node
+ */
 template<typename Key>
 void BinarySearchTree<Key>::remove(const Key &key, TNode<Key> *&node) {
     if (node != nullptr) {
@@ -86,6 +98,12 @@ void BinarySearchTree<Key>::remove(const Key &key, TNode<Key> *&node) {
     }
 }
 
+/**
+ * Private recursive function that
+ * removes a given node in bst
+ * @tparam Key
+ * @param node
+ */
 template<typename Key>
 void BinarySearchTree<Key>::removeNode(TNode<Key> *&node) {
     TNode<Key>* tmp;
@@ -104,17 +122,32 @@ void BinarySearchTree<Key>::removeNode(TNode<Key> *&node) {
         node = tmp;
     }
     else if (node->hasTwo()) {
-        tmp = findLeftmost(node->rightChild);
+        TNode<Key>* parent = tmp;
+        tmp = findLeftmost(node->rightChild, parent);
         node->key = tmp->key;
-        delete tmp;
-        tmp = nullptr;
+        removeNode(tmp);
+        if (parent != tmp)
+            parent->leftChild = tmp;
     }
 }
 
+/**
+ * Private recursive function that finds the
+ * leftmost node & its parent of a bst,
+ * where "node" is the root of the bst
+ * @tparam Key
+ * @param node
+ * @return
+ */
 template<typename Key>
-TNode<Key> *BinarySearchTree<Key>::findLeftmost(TNode<Key> *&node) {
-    if (node->leftChild != nullptr)
-        findLeftmost(node->leftChild);
+TNode<Key> *BinarySearchTree<Key>::findLeftmost(TNode<Key> *&node, TNode<Key> *&parent) {
+    if (node != nullptr && node->leftChild != nullptr) {
+        // if left sub tree has no left child
+        // we have found the parent
+        if ( node->leftChild->leftChild == nullptr)
+            parent = node;
+        return findLeftmost(node->leftChild, parent);
+    }
     else
         return node;
 }

@@ -100,30 +100,78 @@ int main() {
 
     // TEST OF BST
     cout << endl << "BEGINNING OF BST TEST" << endl;
-    BinarySearchTree<string> searchTree = BinarySearchTree<string>();
+    BinarySearchTree<int> searchTree = BinarySearchTree<int>();
     cout << searchTree << endl;
-    searchTree.insert("first things first");
+    searchTree.insert(38);
     cout << searchTree << endl;
-    searchTree.insert("this tree will be sorted");
+    searchTree.insert(27);
     cout << searchTree << endl;
-    searchTree.insert("z");
+    searchTree.insert(67);
     cout << searchTree << endl;
-    searchTree.insert("b");
+    searchTree.insert(15);
     cout << searchTree << endl;
-    searchTree.insert("i");
+    searchTree.insert(32);
     cout << searchTree << endl;
-    searchTree.insert("x");
+    searchTree.insert(54);
     cout << searchTree << endl;
-    searchTree.insert("k");
+    searchTree.insert(107);
     cout << searchTree << endl;
-    searchTree.insert("ff");
+    searchTree.insert(19); // should remain after removals
     cout << searchTree << endl;
-    searchTree.insert("this tree will be sorted");
-    searchTree.display();
-    cout << "this tree will be sorted - appears : "
-            << searchTree.retrieve("this tree will be sorted")
-            << " times" << endl;
-    searchTree.remove("i");
-    searchTree.display();
-    cout << endl << "END OF BST TEST" << endl;
+    searchTree.insert(28);
+    cout << searchTree << endl;
+    searchTree.insert(37);
+    cout << searchTree << endl;
+    searchTree.insert(47);
+    cout << searchTree << endl;
+    searchTree.insert(87);
+    cout << searchTree << endl;
+    searchTree.insert(29);
+    cout << searchTree << endl;
+    searchTree.insert(36);
+    cout << searchTree << endl;
+    searchTree.insert(49);
+    cout << searchTree << endl;
+    searchTree.insert(98);
+    cout << searchTree << endl;
+    searchTree.insert(50); // should remain after removals
+    cout << searchTree << endl;
+    searchTree.insert(91);
+    cout << "END OF INSERTION" << endl << endl;
+    cout << searchTree << endl;
+    searchTree.remove(38);
+    cout << searchTree << endl;
+    searchTree.remove(67);
+    cout << searchTree << endl;
+    searchTree.remove(107);
+    cout << searchTree << endl;
+    searchTree.remove(29);
+    cout << searchTree << endl;
+    searchTree.remove(15);
+    cout << searchTree << endl;
+    searchTree.remove(87);
+    cout << searchTree << endl;
+    searchTree.remove(54);
+    cout << searchTree << endl;
+    searchTree.remove(49);
+    cout << searchTree << endl;
+    searchTree.remove(59); // should be no change
+    cout << searchTree << endl;
+    searchTree.remove(47);
+    cout << searchTree << endl;
+    searchTree.remove(37);
+    cout << searchTree << endl;
+    searchTree.remove(36);
+    cout << searchTree << endl;
+    searchTree.remove(28);
+    cout << searchTree << endl;
+    searchTree.remove(91);
+    cout << searchTree << endl;
+    searchTree.remove(32);
+    cout << searchTree << endl;
+    searchTree.remove(27);
+    cout << searchTree << endl;
+    searchTree.remove(98);
+    cout << searchTree << endl;
+    cout << "END OF BST TEST" << endl;
 }
