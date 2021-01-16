@@ -6,7 +6,7 @@
 #ifndef ADT_EXERCISE_LINKEDLIST_H
 #define ADT_EXERCISE_LINKEDLIST_H
 #include "LNode.h"
-#include "../../Exception.h"
+#include "exception/header/Exception.h"
 
 template <typename T>
 class LinkedList {

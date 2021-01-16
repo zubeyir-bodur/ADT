@@ -7,7 +7,7 @@
 #ifndef ADT_EXERCISE_STACK_H
 #define ADT_EXERCISE_STACK_H
 #include "../../linkedlist/header/LinkedList.h"
-#include "../../Exception.h"
+#include "exception/header/Exception.h"
 #include <string>
 
 template <typename T>

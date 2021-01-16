@@ -2,10 +2,10 @@
  * Author: Zubeyir Bodur
  * Date: 14.1.2021
  **/
-#include "../header/TNode.h"
+#include "../header/BSTNode.h"
 
 template<typename Key>
-TNode<Key>::TNode() {
+BSTNode<Key>::BSTNode() {
     leftChild = nullptr;
     rightChild = nullptr;
     key = NULL;
@@ -13,7 +13,7 @@ TNode<Key>::TNode() {
 }
 
 template<typename Key>
-TNode<Key>::TNode(const TNode<Key> &tNode) {
+BSTNode<Key>::BSTNode(const BSTNode<Key> &tNode) {
     this->leftChild = nullptr;
     this->rightChild = nullptr;
     this->key = tNode.key;
@@ -21,7 +21,7 @@ TNode<Key>::TNode(const TNode<Key> &tNode) {
 }
 
 template<typename Key>
-TNode<Key>::TNode(const Key &key, const int &count, TNode<Key> *leftChild, TNode<Key> *rightChild) {
+BSTNode<Key>::BSTNode(const Key &key, const int &count, BSTNode<Key> *leftChild, BSTNode<Key> *rightChild) {
     this->leftChild = leftChild;
     this->rightChild = rightChild;
     this->key = key;
@@ -29,27 +29,27 @@ TNode<Key>::TNode(const Key &key, const int &count, TNode<Key> *leftChild, TNode
 }
 
 template<typename Key>
-bool TNode<Key>::isLeaf() const {
+bool BSTNode<Key>::isLeaf() const {
     return !(leftChild || rightChild);
 }
 
 template<typename Key>
-bool TNode<Key>::hasTwo() const {
+bool BSTNode<Key>::hasTwo() const {
     return (leftChild && rightChild);
 }
 
 template<typename Key>
-bool TNode<Key>::hasRightOnly() const {
+bool BSTNode<Key>::hasRightOnly() const {
     return (!leftChild && rightChild);
 }
 
 template<typename Key>
-bool TNode<Key>::hasLeftOnly() const {
+bool BSTNode<Key>::hasLeftOnly() const {
     return (leftChild && !rightChild);
 }
 
 template<typename Key>
-TNode<Key> &TNode<Key>::operator=(const TNode<Key> &rvalue) {
+BSTNode<Key> &BSTNode<Key>::operator=(const BSTNode<Key> &rvalue) {
     if (this != &rvalue) { // self assignment
         this->leftChild = nullptr;
         this->rightChild = nullptr;
@@ -60,6 +60,6 @@ TNode<Key> &TNode<Key>::operator=(const TNode<Key> &rvalue) {
 }
 
 template<typename Key>
-void TNode<Key>::display(ostream &out) const {
+void BSTNode<Key>::display(ostream &out) const {
     out << key << " : " << count;
 }

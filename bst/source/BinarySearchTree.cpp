@@ -2,8 +2,8 @@
  * Author: Zubeyir Bodur
  * Date: 14.1.2021
  */
-#include "../header/TNode.h"
-#include "TNode.cpp"
+#include "../header/BSTNode.h"
+#include "BSTNode.cpp"
 #include "../header/BinarySearchTree.h"
 template<typename Key>
 BinarySearchTree<Key>::BinarySearchTree() {
@@ -16,7 +16,7 @@ BinarySearchTree<Key>::~BinarySearchTree() {
 }
 
 template<typename Key>
-void BinarySearchTree<Key>::destroyTree(TNode<Key>*& node) {
+void BinarySearchTree<Key>::destroyTree(BSTNode<Key>*& node) {
     if (node != nullptr) {
         destroyTree(node->leftChild);
         destroyTree(node->rightChild);
@@ -28,22 +28,25 @@ void BinarySearchTree<Key>::destroyTree(TNode<Key>*& node) {
 template<typename Key>
 BinarySearchTree<Key>::BinarySearchTree(const BinarySearchTree<Key> &bst) {
     root = nullptr;
-    TNode<Key>* tmp = bst.root;
+    BSTNode<Key>* tmp = bst.root;
     copyTree(root, tmp);
 }
 
 template<typename Key>
-void BinarySearchTree<Key>::copyTree(TNode<Key> *&target, TNode<Key> *&source) const {
+void BinarySearchTree<Key>::copyTree(BSTNode<Key> *&target, BSTNode<Key> *&source) const {
     if (source != nullptr) {
-        target = new TNode<Key>(*source);
-        copyTree(target->rightChild, source->rightChild);
+        target = new BSTNode<Key>(*source);
         copyTree(target->leftChild, source->leftChild);
+        copyTree(target->rightChild, source->rightChild);
     }
 }
 
 template<typename Key>
 BinarySearchTree<Key> &BinarySearchTree<Key>::operator=(const BinarySearchTree<Key> &rvalue) {
-    copyTree(this->root, rvalue.root);
+    if (this != &rvalue) {
+        destroyTree(*this->root);
+        copyTree(this->root, rvalue.root);
+    }
     return *this;
 }
 
@@ -58,9 +61,9 @@ void BinarySearchTree<Key>::insert(const Key &key) {
 }
 
 template<typename Key>
-void BinarySearchTree<Key>::insert(const Key &key, TNode<Key> *&node) {
+void BinarySearchTree<Key>::insert(const Key &key, BSTNode<Key> *&node) {
     if (node == nullptr)
-        node = new TNode<Key>(key);
+        node = new BSTNode<Key>(key);
     else if (key < node->key)
         insert(key, node->leftChild);
     else if (key > node->key)
@@ -87,7 +90,7 @@ void BinarySearchTree<Key>::remove(const Key &key) {
  * @param node
  */
 template<typename Key>
-void BinarySearchTree<Key>::remove(const Key &key, TNode<Key> *&node) {
+void BinarySearchTree<Key>::remove(const Key &key, BSTNode<Key> *&node) {
     if (node != nullptr) {
         if (key < node->key)
             remove(key, node->leftChild);
@@ -105,8 +108,8 @@ void BinarySearchTree<Key>::remove(const Key &key, TNode<Key> *&node) {
  * @param node
  */
 template<typename Key>
-void BinarySearchTree<Key>::removeNode(TNode<Key> *&node) {
-    TNode<Key>* tmp;
+void BinarySearchTree<Key>::removeNode(BSTNode<Key> *&node) {
+    BSTNode<Key>* tmp;
     if (node->isLeaf()) {
         delete node;
         node = nullptr;
@@ -121,8 +124,9 @@ void BinarySearchTree<Key>::removeNode(TNode<Key> *&node) {
         delete node;
         node = tmp;
     }
-    else if (node->hasTwo()) {
-        TNode<Key>* parent = tmp;
+    else {
+        BSTNode<Key>* parent = tmp;
+        // inorder successor is leftmost child of the right child
         tmp = findLeftmost(node->rightChild, parent);
         node->key = tmp->key;
         removeNode(tmp);
@@ -140,7 +144,7 @@ void BinarySearchTree<Key>::removeNode(TNode<Key> *&node) {
  * @return
  */
 template<typename Key>
-TNode<Key> *BinarySearchTree<Key>::findLeftmost(TNode<Key> *&node, TNode<Key> *&parent) {
+BSTNode<Key> *BinarySearchTree<Key>::findLeftmost(BSTNode<Key> *&node, BSTNode<Key> *&parent) {
     if (node != nullptr && node->leftChild != nullptr) {
         // if left sub tree has no left child
         // we have found the parent
@@ -165,7 +169,7 @@ int BinarySearchTree<Key>::retrieve(const Key &key) {
 }
 
 template<typename Key>
-int BinarySearchTree<Key>::retrieve(const Key &key, TNode<Key> *&node) {
+int BinarySearchTree<Key>::retrieve(const Key &key, BSTNode<Key> *&node) {
     if (node != nullptr) {
         if (key < node->key)
             return retrieve(key, node->leftChild);
@@ -183,8 +187,7 @@ int BinarySearchTree<Key>::retrieve(const Key &key, TNode<Key> *&node) {
  */
 template<typename Key>
 void BinarySearchTree<Key>::display() {
-    void (*visit)(const Key&,const int&) = printPair;
-    inorderTraverse(visit);
+    inorderTraverse(&printPair);
 }
 
 template<typename Key>
@@ -193,6 +196,18 @@ void BinarySearchTree<Key>::preorderTraverse(Function visit) {
     preorder(root, visit);
 }
 
+/**
+ * Traverses the BTS in inorder traversal
+ * Applies visit function for each node like the following:
+ *      visit(node->key, node->data)
+ * To use it, pass the address of the function to be applied:
+ *      inorderTraverse(&myFunction);
+ * Note: myFunction must have the prototype:
+ *      void myFunction(const Key&, const Data&);
+ * @tparam Key
+ * @tparam Function
+ * @param visit
+ */
 template<typename Key>
 template<typename Function>
 void BinarySearchTree<Key>::inorderTraverse(Function visit) {
@@ -207,7 +222,7 @@ void BinarySearchTree<Key>::postorderTraverse(Function visit) {
 
 template<typename Key>
 template<typename Function>
-void BinarySearchTree<Key>::preorder(TNode<Key>*& node, Function visit) {
+void BinarySearchTree<Key>::preorder(BSTNode<Key>*& node, Function visit) {
     if (node != nullptr) {
         visit(node->key, node->count);
         preorder(node->leftChild, visit);
@@ -217,7 +232,7 @@ void BinarySearchTree<Key>::preorder(TNode<Key>*& node, Function visit) {
 
 template<typename Key>
 template<typename Function>
-void BinarySearchTree<Key>::inorder(TNode<Key>*& node, Function visit) {
+void BinarySearchTree<Key>::inorder(BSTNode<Key>*& node, Function visit) {
     if (node != nullptr) {
         inorder(node->leftChild, visit);
         visit(node->key, node->count);
@@ -227,7 +242,7 @@ void BinarySearchTree<Key>::inorder(TNode<Key>*& node, Function visit) {
 
 template<typename Key>
 template<typename Function>
-void BinarySearchTree<Key>::postorder(TNode<Key>*& node, Function visit) {
+void BinarySearchTree<Key>::postorder(BSTNode<Key>*& node, Function visit) {
     if (node != nullptr) {
         postorder(node->leftChild, visit);
         postorder(node->rightChild, visit);
@@ -241,7 +256,7 @@ void BinarySearchTree<Key>::printPair(const Key &key, const int &count) {
 }
 
 template<typename Key>
-void BinarySearchTree<Key>::printNode(TNode<Key>*& node, ostream &out) const {
+void BinarySearchTree<Key>::printNode(BSTNode<Key>*& node, ostream &out) const {
     if (node != nullptr) {
         printNode(node->leftChild, out);
         out << *node << endl;

@@ -1,7 +1,7 @@
 /**
 * Author: Zubeyir Bodur
 * Date: 13.1.2021
- * Description: Exception interface for a ADT
+ * Description: Exception interface for an ADT
 */
 #ifndef __EXCEPTION_H_
 #define __EXCEPTION_H_

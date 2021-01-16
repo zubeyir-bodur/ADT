@@ -77,7 +77,7 @@ int main() {
     try {
         queue.dequeue();
     }
-    catch (Exception e) {
+    catch (Exception& e) {
         cout << e.what() << endl;
     }
     cout << "END OF QUEUE TEST" << endl;
@@ -101,7 +101,7 @@ int main() {
     // TEST OF BST
     cout << endl << "BEGINNING OF BST TEST" << endl;
     BinarySearchTree<int> searchTree = BinarySearchTree<int>();
-    cout << searchTree << endl;
+    searchTree.display();
     searchTree.insert(38);
     cout << searchTree << endl;
     searchTree.insert(27);
@@ -156,7 +156,8 @@ int main() {
     searchTree.remove(49);
     cout << searchTree << endl;
     searchTree.remove(59); // should be no change
-    cout << searchTree << endl;
+    searchTree.display();
+    cout << endl;
     searchTree.remove(47);
     cout << searchTree << endl;
     searchTree.remove(37);
@@ -172,6 +173,7 @@ int main() {
     searchTree.remove(27);
     cout << searchTree << endl;
     searchTree.remove(98);
-    cout << searchTree << endl;
+    searchTree.display();
+    cout << endl;
     cout << "END OF BST TEST" << endl;
 }

@@ -4,10 +4,14 @@ Bunch of abstract data types in C++. They (will) include pointer-based implement
 - Stack - complete
 - Queue - complete
 - Binary Search Tree - complete
+- Heap
+  - array based
+  - ptr based
+- Priority Queue  
 - AVL Tree
 - 2-3 Tree
 - 2-3-4 Tree
 - Red-Black Tree
-- Heap
+- Table  
 - Hash Table
 - Graph

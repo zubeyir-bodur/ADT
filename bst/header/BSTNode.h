@@ -1,6 +1,7 @@
 /**
  * Author: Zubeyir Bodur
  * Date: 14.1.2021
+ * Description: A BST node with a count value
  */
 #ifndef ADT_EXERCISE_TNODE_H
 #define ADT_EXERCISE_TNODE_H
@@ -9,27 +10,27 @@
 using namespace std;
 
 template <typename Key>
-class TNode {
-    friend ostream& operator<<(ostream& out, const TNode<Key>& node) {
+class BSTNode {
+    friend ostream& operator<<(ostream& out, const BSTNode<Key>& node) {
         node.display(out);
         return out;
     };
 private:
-    TNode();
-    TNode(const TNode<Key>& tNode);
-    TNode(const Key& key,
-          const int& count = 1,
-          TNode<Key>* leftChild = nullptr,
-          TNode<Key>* rightChild = nullptr);
+    BSTNode();
+    BSTNode(const BSTNode<Key>& tNode);
+    BSTNode(const Key& key,
+            const int& count = 1,
+            BSTNode<Key>* leftChild = nullptr,
+            BSTNode<Key>* rightChild = nullptr);
     bool isLeaf() const;
     bool hasTwo() const;
     bool hasRightOnly() const;
     bool hasLeftOnly() const;
     void display(ostream& out) const;
-    TNode<Key>& operator=(const TNode<Key>& rvalue);
+    BSTNode<Key>& operator=(const BSTNode<Key>& rvalue);
 
-    TNode<Key>* leftChild;
-    TNode<Key>* rightChild;
+    BSTNode<Key>* leftChild;
+    BSTNode<Key>* rightChild;
     Key key;
     int count;
 
