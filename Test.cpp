@@ -6,6 +6,8 @@
 #include "queue/source/Queue.cpp"
 #include "stack/source/Stack.cpp"
 #include "bst/source/BinarySearchTree.cpp"
+#include "heap/source/Heap.cpp"
+#include "priorityq/source/PriorityQueue.cpp"
 
 int main() {
     // TEST OF LINKED LIST
@@ -176,4 +178,39 @@ int main() {
     searchTree.display();
     cout << endl;
     cout << "END OF BST TEST" << endl;
+
+    // TEST OF HEAP
+    cout << endl << "BEGINNING OF HEAP TEST" << endl;
+    Heap<int, string> priorityQ = Heap<int, string>(false);
+    //Heap<int, string> minHeap = Heap<int>(true);
+    // it is impossible for user not to choose a data field
+    priorityQ.insert(12, "King");
+    priorityQ.insert(8, "Queen");
+    priorityQ.insert(3, "General");
+    priorityQ.insert(7, "Citizen");
+    priorityQ.insert(4, "Earth");
+    priorityQ.insert(5, "Earth");
+    priorityQ.insert(13, "Earth");
+    priorityQ.insert(2, "Earth");
+    priorityQ.insert(6, "Earth");
+    priorityQ.insert(10, "Earth");
+    priorityQ.insert(1, "Earth");
+    priorityQ.display();
+    cout << endl;
+    priorityQ.remove();
+    priorityQ.display();
+    cout << endl;
+    priorityQ.remove();
+    priorityQ.display();
+    cout << endl;
+    priorityQ.remove();
+    priorityQ.display();
+    cout << endl;
+    priorityQ.remove();
+    priorityQ.display();
+    cout << endl;
+    priorityQ.remove();
+    priorityQ.display();
+    cout << endl;
+    cout << endl << "END OF HEAP TEST" << endl;
 }

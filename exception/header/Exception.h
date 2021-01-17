@@ -18,7 +18,13 @@ public:
         return msg.c_str();
     }
     Exception(const string& message ="")
-            :exception(), msg(message) {};
+            : exception(), msg(message) {};
+    Exception(const Exception& e)
+            : exception(), msg(e.msg) {};
     ~Exception() throw() {};
+
+    void setMsg(const string& message) {
+        msg = message;
+    }
 };
 #endif

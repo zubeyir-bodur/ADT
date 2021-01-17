@@ -1,9 +1,9 @@
 /**
  * Author: Zubeyir Bodur
  * Date: 16.1.2021
- * Description: Pointer based implementation for a ptrheap
+ * Description: Pointer based implementation for a heap
  * Can be either a minheap or a maxheap.
- * By default, it's a max ptrheap
+ * By default, it's a max heap
  */
 #ifndef ADT_PHEAP_H
 #define ADT_PHEAP_H

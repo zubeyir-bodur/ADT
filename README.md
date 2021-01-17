@@ -5,8 +5,8 @@ Bunch of abstract data types in C++. They (will) include pointer-based implement
 - Queue - complete
 - Binary Search Tree - complete
 - Heap
-  - array based
-  - ptr based
+  - array based - complete
+  - ptr based - incomplete
 - Priority Queue  
 - AVL Tree
 - 2-3 Tree

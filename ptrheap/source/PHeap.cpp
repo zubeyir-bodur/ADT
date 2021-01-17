@@ -65,6 +65,7 @@ void PHeap<Key, Data>::insert(const Key &key, const Data& data) {
 
 template<typename Key, typename Data>
 void PHeap<Key, Data>::insert(PHNode<Key, Data> *&node, const Key &key, const Data &data) {
+    // TODO
 //    if (node != nullptr) {
 //        if (node->index == (size - 1) / 2) { // found the parent node of the insertion
 //            // find which child  to insert
@@ -95,7 +96,7 @@ void PHeap<Key, Data>::insert(PHNode<Key, Data> *&node, const Key &key, const Da
 }
 
 /**
- * Retrieves and removes the root of the ptrheap
+ * Retrieves and removes the root of the heap
  * @tparam Key
  * @tparam Data
  * @return
@@ -120,7 +121,7 @@ void PHeap<Key, Data>::remove() {
 }
 
 /**
- * Prints the ptrheap in preorder
+ * Prints the heap in preorder
  * @tparam Key
  * @tparam Data
  */
@@ -130,7 +131,7 @@ void PHeap<Key, Data>::display() const {
 }
 
 /**
- * Prints the given node of the ptrheap
+ * Prints the given node of the heap
  * in preorder traversal
  * @tparam Key
  * @tparam Data
