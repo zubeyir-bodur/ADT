@@ -181,36 +181,72 @@ int main() {
 
     // TEST OF HEAP
     cout << endl << "BEGINNING OF HEAP TEST" << endl;
-    Heap<int, string> priorityQ = Heap<int, string>(false);
-    //Heap<int, string> minHeap = Heap<int>(true);
+    Heap<int, string> minHeap = Heap<int, string>(true);
+    //Heap<int> minHeap = Heap<int>(true);
     // it is impossible for user not to choose a data field
-    priorityQ.insert(12, "King");
-    priorityQ.insert(8, "Queen");
-    priorityQ.insert(3, "General");
-    priorityQ.insert(7, "Citizen");
-    priorityQ.insert(4, "Earth");
-    priorityQ.insert(5, "Earth");
-    priorityQ.insert(13, "Earth");
-    priorityQ.insert(2, "Earth");
-    priorityQ.insert(6, "Earth");
-    priorityQ.insert(10, "Earth");
-    priorityQ.insert(1, "Earth");
-    priorityQ.display();
+    // meaning that key and items are seperate from each other
+    // in an item type
+    minHeap.insert(12, "King");
+    minHeap.insert(8, "White Collar");
+    minHeap.insert(3, "General");
+    minHeap.insert(7, "BLue Collar");
+    minHeap.insert(4, "Alcohol");
+    minHeap.insert(5, "Gaming");
+    minHeap.insert(13, "Earth");
+    minHeap.insert(2, "Tobacco");
+    minHeap.insert(6, "Citizen");
+    minHeap.insert(10, "Queen");
+    minHeap.insert(1, "Drug");
+    minHeap.display();
     cout << endl;
-    priorityQ.remove();
-    priorityQ.display();
+    minHeap.remove();
+    minHeap.display();
     cout << endl;
-    priorityQ.remove();
-    priorityQ.display();
+    minHeap.remove();
+    minHeap.display();
     cout << endl;
-    priorityQ.remove();
-    priorityQ.display();
+    minHeap.remove();
+    minHeap.display();
     cout << endl;
-    priorityQ.remove();
-    priorityQ.display();
+    minHeap.remove();
+    minHeap.display();
     cout << endl;
-    priorityQ.remove();
-    priorityQ.display();
+    minHeap.remove();
+    minHeap.display();
     cout << endl;
     cout << endl << "END OF HEAP TEST" << endl;
+
+    // TEST OF PQ
+    cout << endl << "BEGINNING OF PQ TEST" << endl;
+    // pq is just a max heap
+    PriorityQueue<int, string> pq = PriorityQueue<int, string>();
+    pq.enqueue(12, "King");
+    pq.enqueue(8, "White Collar");
+    pq.enqueue(3, "General");
+    pq.enqueue(7, "BLue Collar");
+    pq.enqueue(4, "Alcohol");
+    pq.enqueue(5, "Gaming");
+    pq.enqueue(13, "Earth");
+    pq.enqueue(2, "Tobacco");
+    pq.enqueue(6, "Citizen");
+    pq.enqueue(10, "Queen");
+    pq.enqueue(1, "Drug");
+    pq.display();
+    cout << endl;
+    pq.dequeue();
+    pq.display();
+    cout << endl;
+    pq.dequeue();
+    pq.display();
+    cout << endl;
+    pq.dequeue();
+    pq.display();
+    cout << endl;
+    pq.dequeue();
+    pq.display();
+    cout << endl;
+    pq.dequeue();
+    pq.display();
+    cout << endl;
+    cout << endl << "END OF PQ TEST" << endl;
 }

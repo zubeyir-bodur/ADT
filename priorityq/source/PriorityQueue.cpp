@@ -14,12 +14,7 @@ PriorityQueue<Key, Item>::~PriorityQueue() = default;
 
 template<typename Key, typename Item>
 PriorityQueue<Key, Item>::PriorityQueue(const PriorityQueue<Key, Item> &priorityQueue) {
-    maxHeap = Heap<Key, Item>(priorityQueue.maxHeap);
-}
-
-template<typename Key, typename Item>
-PriorityQueue<Key, Item>::PriorityQueue(const bool &isMin) {
-    maxHeap = Heap<Key, Item>(isMin);
+    maxHeap = priorityQueue.maxHeap;
 }
 
 template<typename Key, typename Item>

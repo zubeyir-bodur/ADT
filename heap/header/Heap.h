@@ -10,7 +10,7 @@
 #include <iostream>
 using namespace std;
 const int MAX_HEAP = 1000;
-template<typename Key, typename Item = void>
+template<typename Key, typename Item>
 class Heap {
 
     friend ostream& operator<<(ostream& out, const Heap<Key, Item>& heap) {
@@ -21,7 +21,7 @@ public:
     Heap();
     ~Heap();
     Heap(const Heap<Key, Item>& heap);
-    Heap(const bool& isMin = false);
+    Heap(const bool& isMin);
     bool isEmpty() const;
     bool isMax() const;
     int getSize() const;
@@ -31,6 +31,8 @@ public:
     void remove();
     void display() const;
     void displayVisual() const;
+
+    Heap<Key, Item>& operator=(const Heap<Key, Item>& rvalue);
 private:
     struct Pair {
         Key key;

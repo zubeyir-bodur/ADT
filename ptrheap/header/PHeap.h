@@ -4,6 +4,8 @@
  * Description: Pointer based implementation for a heap
  * Can be either a minheap or a maxheap.
  * By default, it's a max heap
+ * Solution is based on the post on Stackoverflow:
+ * https://stackoverflow.com/questions/19720438/is-it-possible-to-make-efficient-pointer-based-binary-heap-implementations
  */
 #ifndef ADT_PHEAP_H
 #define ADT_PHEAP_H

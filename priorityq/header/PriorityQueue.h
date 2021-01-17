@@ -7,13 +7,12 @@
 #ifndef ADT_PRIORITYQUEUE_H
 #define ADT_PRIORITYQUEUE_H
 #include "../../heap/header/Heap.h"
-template<typename Key, typename Item = void>
+template<typename Key, typename Item>
 class PriorityQueue {
 public:
     PriorityQueue();
     ~PriorityQueue();
     PriorityQueue(const PriorityQueue<Key, Item>& priorityQueue);
-    PriorityQueue(const bool& isMin = false);
     bool isEmpty() const;
     int getSize() const;
     void enqueue(const Key& key, const Item& item) noexcept(false);

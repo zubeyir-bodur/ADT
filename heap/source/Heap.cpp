@@ -76,12 +76,47 @@ void Heap<Key, Item>::remove() noexcept(false) {
 
 template<typename Key, typename Item>
 void Heap<Key, Item>::heapifyUp(const int &child) {
-    // TODO
+    if (child > 0) {
+        int parent = (child - 1) / 2;
+        bool unbalanced = isMin ?
+                data[child].key < data[parent].key:
+                data[child].key > data[parent].key;
+        if (unbalanced) {
+            Pair tmp = data[child];
+            data[child] = data[parent];
+            data[parent] = tmp;
+            heapifyUp(parent);
+        }
+    }
 }
 
 template<typename Key, typename Item>
 void Heap<Key, Item>::heapifyDown(const int &parent) {
-    // TODO
+    int leftChild = 2 * parent + 1;
+    if (leftChild < size) {
+        int rightChild = leftChild + 1;
+        // find the larger child for max heap
+        // find the smaller child for min heap
+        bool unbalancedRight = isMin ?
+                    (data[rightChild].key < data[leftChild].key) :
+                    (data[rightChild].key > data[leftChild].key);
+        int targetChild;
+        if (rightChild < size && unbalancedRight)
+            targetChild = rightChild;
+        else
+            targetChild = leftChild;
+        // swap values if target child smaller for min heap
+        // swap values if target child larger for max heap
+        bool unbalanced = isMin ?
+            (data[targetChild].key < data[parent].key) :
+            (data[targetChild].key > data[parent].key);
+        if (unbalanced) {
+            Pair tmp = data[targetChild];
+            data[targetChild] = data[parent];
+            data[parent] = tmp;
+            heapifyDown(targetChild);
+        }
+    }
 }
 
 template<typename Key, typename Item>
@@ -132,5 +167,15 @@ void Heap<Key, Item>::displayVisual() const {
         }
         cout << endl;
     }
+}
+
+template<typename Key, typename Item>
+Heap<Key, Item> &Heap<Key, Item>::operator=(const Heap<Key, Item> &rvalue) {
+    if (this != &rvalue) {
+        size = rvalue.size;
+        for (int i = 0; i < size; i++)
+            data[i] = rvalue.data[i];
+    }
+    return *this;
 }
 
