@@ -5,43 +5,33 @@
  */
 #ifndef ADT_AVLTREE_H
 #define ADT_AVLTREE_H
-#include <iostream>
-#include <string>
-using namespace std;
+#include "../../bst/header/BinarySearchTree.h"
+#include "../../node/header/Node.h"
+/**
+ * AVL Tree is a BST whose balance
+ * is maintained by rotation operations
+ * so we could make use of inheritance
+ * @tparam Key
+ * @tparam Item
+ */
 template<typename Key, typename Item>
-class AVLTree {
+class AVLTree : public BinarySearchTree<Key, Item> {
+    using super = BinarySearchTree<Key, Item>;
     friend ostream& operator<<(ostream& out, const AVLTree<Key, Item>& avlTree) {
         // TODO
         return out;
     };
 public:
     AVLTree();
-    ~AVLTree();
     AVLTree(const AVLTree<Key, Item>& avlTree);
-    void insert(const Key& key, const Item& item);
-    void remove(const Key& key);
-    Item retrieve(const Key& key);
-    void display();
-    template<typename Function> void preorderTraverse(Function visit);
-    template<typename Function> void inorderTraverse(Function visit);
-    template<typename Function> void postorderTraverse(Function visit);
-    AVLTree& operator=(AVLTree<Key, Item>& rvalue);
+    void insert(const Key& key, const Item& item) override;
+    void remove(const Key& key) override;
 
     // static functions for traversing the tree
-    static void printPair(const Key& key, const int& count);
-private:
-    struct AVLNode {
-        AVLNode* left;
-        AVLNode* right;
-        Key key;
-        Item item;
-    };
-    AVLNode* root;
+    static void printPair(const Key& key, const Item& item);
 
-    void destroyTree(AVLNode<Key, Item> *& node);
-    void copyTree(AVLNode<Key, Item>*& target, AVLNode<Key, Item>*& source) const;
-    template<typename Function> void preorder(AVLNode<Key, Item>*& node, Function visit);
-    template<typename Function> void inorder(AVLNode<Key, Item>*& node, Function visit);
-    template<typename Function> void postorder(AVLNode<Key, Item>*& node, Function visit);
+    AVLTree<Key, Item>& operator=(const AVLTree<Key, Item>& rvalue);
+private:
+    // add helper functions
 };
 #endif

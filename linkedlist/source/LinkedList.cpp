@@ -4,7 +4,7 @@
  * Date: 9.1.2021
  */
 #include "../header/LinkedList.h"
-#include "LNode.cpp"
+#include "node/source/LNode.cpp"
 
 template <typename T>
 LinkedList<T>::LinkedList() {

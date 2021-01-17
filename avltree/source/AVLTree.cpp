@@ -3,94 +3,49 @@
  * Date: 17.1.2021
  */
 #include "../header/AVLTree.h"
+
 template<typename Key, typename Item>
 AVLTree<Key, Item>::AVLTree() {
-
-}
-
-template<typename Key, typename Item>
-AVLTree<Key, Item>::~AVLTree() {
-
+    super::root = nullptr;
 }
 
 template<typename Key, typename Item>
 AVLTree<Key, Item>::AVLTree(const AVLTree<Key, Item> &avlTree) {
-
+    super::root = nullptr;
+    Node<Key, Item>* tmp = avlTree.root;
+    super::copyTree(super::root, tmp);
 }
 
 template<typename Key, typename Item>
 void AVLTree<Key, Item>::insert(const Key &key, const Item &item) {
-
+    // insert the same as BST
+    super::insert(key, item);
+    // perform the proper rotate operation
 }
 
+/**
+ * AVL Tree removal, the place where we actually use parent ptr
+ * @tparam Key
+ * @tparam Item
+ * @param key
+ */
 template<typename Key, typename Item>
 void AVLTree<Key, Item>::remove(const Key &key) {
-
+    // remove the same as BST
+    super::remove(key);
+    // balance the removal position up to the parent
 }
 
 template<typename Key, typename Item>
-Item AVLTree<Key, Item>::retrieve(const Key &key) {
-    return nullptr;
+void AVLTree<Key, Item>::printPair(const Key &key, const Item &item) {
+    super::printPair(key, item);
 }
 
 template<typename Key, typename Item>
-void AVLTree<Key, Item>::display() {
-
+AVLTree<Key, Item> &AVLTree<Key, Item>::operator=(const AVLTree<Key, Item> &rvalue) {
+    if (this != &rvalue) {
+        super::destroyTree(this->root);
+        super::copyTree(this->root, rvalue.root);
+    }
+    return *this;
 }
-
-template<typename Key, typename Item>
-template<typename Function>
-void AVLTree<Key, Item>::preorderTraverse(Function visit) {
-
-}
-
-template<typename Key, typename Item>
-template<typename Function>
-void AVLTree<Key, Item>::inorderTraverse(Function visit) {
-
-}
-
-template<typename Key, typename Item>
-template<typename Function>
-void AVLTree<Key, Item>::postorderTraverse(Function visit) {
-
-}
-
-template<typename Key, typename Item>
-AVLTree &AVLTree<Key, Item>::operator=(AVLTree<Key, Item> &rvalue) {
-    return nullptr;
-}
-
-template<typename Key, typename Item>
-void AVLTree<Key, Item>::printPair(const Key &key, const int &count) {
-
-}
-
-template<typename Key, typename Item>
-void AVLTree<Key, Item>::destroyTree(AVLNode <Key, Item> *&node) {
-
-}
-
-template<typename Key, typename Item>
-void AVLTree<Key, Item>::copyTree(AVLNode <Key, Item> *&target, AVLNode<Key, Item> *&source) const {
-
-}
-
-template<typename Key, typename Item>
-template<typename Function>
-void AVLTree<Key, Item>::preorder(AVLNode <Key, Item> *&node, Function visit) {
-
-}
-
-template<typename Key, typename Item>
-template<typename Function>
-void AVLTree<Key, Item>::inorder(AVLNode <Key, Item> *&node, Function visit) {
-
-}
-
-template<typename Key, typename Item>
-template<typename Function>
-void AVLTree<Key, Item>::postorder(AVLNode <Key, Item> *&node, Function visit) {
-
-}
-

@@ -27,7 +27,7 @@ public:
     T getTop() const noexcept(false);
     void display() const;
 
-    Stack<T>& operator=(Stack<T>& rvalue);
+    Stack<T>& operator=(const Stack<T>& rvalue);
 private:
     LinkedList<T> list;
 

@@ -3,7 +3,7 @@
  * Date: 16.1.2021
  */
 #include "../header/PHeap.h"
-#include "../header/PHNode.h"
+#include "node/header/PHNode.h"
 
 template<typename Key, typename Data>
 PHeap<Key, Data>::PHeap() : isMin(false) {
@@ -70,9 +70,9 @@ void PHeap<Key, Data>::insert(PHNode<Key, Data> *&node, const Key &key, const Da
 //        if (node->index == (size - 1) / 2) { // found the parent node of the insertion
 //            // find which child  to insert
 //            if (node->left == nullptr)
-//                node->left = new HNode<Key, Data>(key, data, size);
+//                node->left = new HNode<Key, Item>(key, data, size);
 //            else
-//                node->right = new HNode<Key, Data>(key, data, size);
+//                node->right = new HNode<Key, Item>(key, data, size);
 //            size++;
 //        }
 //        else {
@@ -82,11 +82,11 @@ void PHeap<Key, Data>::insert(PHNode<Key, Data> *&node, const Key &key, const Da
 //        }
 //    }
 //            if (node->getLeftIndex() == size) {
-//                node->left = new HNode<Key, Data>(key, data, size);
+//                node->left = new HNode<Key, Item>(key, data, size);
 //                size++;
 //            }
 //            else if (node->getRightIndex() == size) {
-//                node->right = new HNode<Key, Data>(key, data, size);
+//                node->right = new HNode<Key, Item>(key, data, size);
 //                size++;
 //            }
 //            else {

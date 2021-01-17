@@ -9,7 +9,7 @@
  */
 #ifndef ADT_PHEAP_H
 #define ADT_PHEAP_H
-#include "PHNode.h"
+#include "node/header/PHNode.h"
 template<typename Key, typename Data>
 class PHeap {
     friend ostream& operator<<(ostream& out, const PHeap<Key, Data>& heap) {

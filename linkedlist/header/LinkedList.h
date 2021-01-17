@@ -5,7 +5,7 @@
  */
 #ifndef ADT_EXERCISE_LINKEDLIST_H
 #define ADT_EXERCISE_LINKEDLIST_H
-#include "LNode.h"
+#include "node/header/LNode.h"
 #include "exception/header/Exception.h"
 
 template <typename T>

@@ -49,7 +49,7 @@ T Stack<T>::getTop() const noexcept(false) {
 }
 
 template<typename T>
-Stack<T> &Stack<T>::operator=(Stack<T>& rvalue) {
+Stack<T> &Stack<T>::operator=(const Stack<T>& rvalue) {
     if (this == &rvalue) // self assignment
         return *this;
     else

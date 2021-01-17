@@ -8,6 +8,7 @@
 #include "bst/source/BinarySearchTree.cpp"
 #include "heap/source/Heap.cpp"
 #include "priorityq/source/PriorityQueue.cpp"
+#include "avltree/source/AVLTree.cpp"
 
 int main() {
     // TEST OF LINKED LIST
@@ -102,43 +103,45 @@ int main() {
 
     // TEST OF BST
     cout << endl << "BEGINNING OF BST TEST" << endl;
-    BinarySearchTree<int> searchTree = BinarySearchTree<int>();
+    BinarySearchTree<int, string> searchTree = BinarySearchTree<int, string>();
+    cout << "does display work" << endl;
     searchTree.display();
-    searchTree.insert(38);
+    cout << "display works" << endl;
+    searchTree.insert(38, "my");
     cout << searchTree << endl;
-    searchTree.insert(27);
+    searchTree.insert(27, "name");
     cout << searchTree << endl;
-    searchTree.insert(67);
+    searchTree.insert(67, "is");
     cout << searchTree << endl;
-    searchTree.insert(15);
+    searchTree.insert(15, "binary");
     cout << searchTree << endl;
-    searchTree.insert(32);
+    searchTree.insert(32, "search");
     cout << searchTree << endl;
-    searchTree.insert(54);
+    searchTree.insert(54, "tree");
     cout << searchTree << endl;
-    searchTree.insert(107);
+    searchTree.insert(107, "i'm not balanced");
     cout << searchTree << endl;
-    searchTree.insert(19); // should remain after removals
+    searchTree.insert(19, "but i'm able to sort"); // should remain after removals
     cout << searchTree << endl;
-    searchTree.insert(28);
+    searchTree.insert(28, "i");
     cout << searchTree << endl;
-    searchTree.insert(37);
+    searchTree.insert(37, "work");
     cout << searchTree << endl;
-    searchTree.insert(47);
+    searchTree.insert(47, "with");
     cout << searchTree << endl;
-    searchTree.insert(87);
+    searchTree.insert(87, "average time complexity");
     cout << searchTree << endl;
-    searchTree.insert(29);
+    searchTree.insert(29, "of");
     cout << searchTree << endl;
-    searchTree.insert(36);
+    searchTree.insert(36, "o(logn)");
     cout << searchTree << endl;
-    searchTree.insert(49);
+    searchTree.insert(49, "but it's o(n)");
     cout << searchTree << endl;
-    searchTree.insert(98);
+    searchTree.insert(98, "at the worst case");
     cout << searchTree << endl;
-    searchTree.insert(50); // should remain after removals
+    searchTree.insert(50, "goodbye"); // should remain after removals
     cout << searchTree << endl;
-    searchTree.insert(91);
+    searchTree.insert(91, "my friend");
     cout << "END OF INSERTION" << endl << endl;
     cout << searchTree << endl;
     searchTree.remove(38);
@@ -249,4 +252,17 @@ int main() {
     pq.display();
     cout << endl;
     cout << endl << "END OF PQ TEST" << endl;
+
+    // TEST OF AVL TREE
+    cout << endl << "BEGINNING OF AVL TREE TEST" << endl;
+    auto avlTree = AVLTree<int, string>();
+    avlTree.display();
+    avlTree.insert(9, "bo");
+    avlTree.insert(-2, "bo");
+    avlTree.insert(5, "bo");
+    avlTree.display();
+    avlTree.remove(9);
+    avlTree.remove(0);
+    avlTree.display();
+    cout << endl << "END OF AVL TREE TEST" << endl;
 }

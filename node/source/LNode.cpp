@@ -2,7 +2,7 @@
  * Author: Zubeyir Bodur
  * Date: 9.1.2021
  */
-#include "../header/LNode.h"
+#include "node/header/LNode.h"
 template <typename T>
 LNode<T>::LNode() {
    next = nullptr;

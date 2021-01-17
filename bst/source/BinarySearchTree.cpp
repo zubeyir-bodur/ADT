@@ -2,74 +2,85 @@
  * Author: Zubeyir Bodur
  * Date: 14.1.2021
  */
-#include "../header/BSTNode.h"
-#include "BSTNode.cpp"
 #include "../header/BinarySearchTree.h"
-template<typename Key>
-BinarySearchTree<Key>::BinarySearchTree() {
+
+template<typename Key, typename Item>
+BinarySearchTree<Key, Item>::BinarySearchTree() {
     root = nullptr;
 }
 
-template<typename Key>
-BinarySearchTree<Key>::~BinarySearchTree() {
+template<typename Key, typename Item>
+BinarySearchTree<Key, Item>::~BinarySearchTree() {
     destroyTree(root);
 }
 
-template<typename Key>
-void BinarySearchTree<Key>::destroyTree(BSTNode<Key>*& node) {
+template<typename Key, typename Item>
+void BinarySearchTree<Key, Item>::destroyTree(Node<Key, Item>*& node) {
     if (node != nullptr) {
-        destroyTree(node->leftChild);
-        destroyTree(node->rightChild);
+        destroyTree(node->left);
+        destroyTree(node->right);
         delete node;
         node = nullptr;
     }
 }
 
-template<typename Key>
-BinarySearchTree<Key>::BinarySearchTree(const BinarySearchTree<Key> &bst) {
+template<typename Key, typename Item>
+BinarySearchTree<Key, Item>::BinarySearchTree(const BinarySearchTree<Key, Item> &bst) {
     root = nullptr;
-    BSTNode<Key>* tmp = bst.root;
+    Node<Key, Item>* tmp = bst.root;
     copyTree(root, tmp);
 }
 
-template<typename Key>
-void BinarySearchTree<Key>::copyTree(BSTNode<Key> *&target, BSTNode<Key> *&source) const {
+template<typename Key, typename Item>
+void BinarySearchTree<Key, Item>::copyTree(Node<Key, Item> *&target, Node<Key, Item> *&source) {
     if (source != nullptr) {
-        target = new BSTNode<Key>(*source);
-        copyTree(target->leftChild, source->leftChild);
-        copyTree(target->rightChild, source->rightChild);
+        target = new Node<Key, Item>;
+        target->key = source->key;
+        target->item = source->item;
+        target->left = nullptr;
+        target->right = nullptr;
+        copyTree(target->left, source->left);
+        copyTree(target->right, source->right);
     }
 }
 
-template<typename Key>
-BinarySearchTree<Key> &BinarySearchTree<Key>::operator=(const BinarySearchTree<Key> &rvalue) {
+template<typename Key, typename Item>
+BinarySearchTree<Key, Item> &BinarySearchTree<Key, Item>::operator=(const BinarySearchTree<Key, Item> &rvalue) {
     if (this != &rvalue) {
-        destroyTree(*this->root);
+        destroyTree(this->root);
         copyTree(this->root, rvalue.root);
     }
     return *this;
 }
 
-template<typename Key>
-bool BinarySearchTree<Key>::isEmpty() const {
+template<typename Key, typename Item>
+bool BinarySearchTree<Key, Item>::isEmpty() const {
     return root == nullptr;
 }
 
-template<typename Key>
-void BinarySearchTree<Key>::insert(const Key &key) {
-    insert(key, root);
+template<typename Key, typename Item>
+int BinarySearchTree<Key, Item>::getSize() const {
+    return 0;
 }
 
-template<typename Key>
-void BinarySearchTree<Key>::insert(const Key &key, BSTNode<Key> *&node) {
-    if (node == nullptr)
-        node = new BSTNode<Key>(key);
+template<typename Key, typename Item>
+void BinarySearchTree<Key, Item>::insert(const Key &key, const Item &item) {
+    insert(key, item, root);
+}
+
+template<typename Key, typename Item>
+void BinarySearchTree<Key, Item>::insert(const Key &key, const Item &item, Node<Key, Item> *&node) {
+    if (node == nullptr) {
+        node = new Node<Key, Item>;
+        node->key = key;
+        node->item = item;
+        node->left = nullptr;
+        node->right = nullptr;
+    }
     else if (key < node->key)
-        insert(key, node->leftChild);
+        insert(key, item, node->left);
     else if (key > node->key)
-        insert(key, node->rightChild);
-    else
-        node->count++;
+        insert(key, item, node->right);
 }
 
 /**
@@ -77,8 +88,8 @@ void BinarySearchTree<Key>::insert(const Key &key, BSTNode<Key> *&node) {
  * @tparam Key
  * @param key
  */
-template<typename Key>
-void BinarySearchTree<Key>::remove(const Key &key) {
+template<typename Key, typename Item>
+void BinarySearchTree<Key, Item>::remove(const Key &key) {
     remove(key, root);
 }
 
@@ -89,13 +100,13 @@ void BinarySearchTree<Key>::remove(const Key &key) {
  * @param key
  * @param node
  */
-template<typename Key>
-void BinarySearchTree<Key>::remove(const Key &key, BSTNode<Key> *&node) {
+template<typename Key, typename Item>
+void BinarySearchTree<Key, Item>::remove(const Key &key, Node<Key, Item> *&node) {
     if (node != nullptr) {
         if (key < node->key)
-            remove(key, node->leftChild);
+            remove(key, node->left);
         else if (key > node->key)
-            remove(key, node->rightChild);
+            remove(key, node->right);
         else
             removeNode(node);
     }
@@ -107,31 +118,32 @@ void BinarySearchTree<Key>::remove(const Key &key, BSTNode<Key> *&node) {
  * @tparam Key
  * @param node
  */
-template<typename Key>
-void BinarySearchTree<Key>::removeNode(BSTNode<Key> *&node) {
-    BSTNode<Key>* tmp;
-    if (node->isLeaf()) {
+template<typename Key, typename Item>
+void BinarySearchTree<Key, Item>::removeNode(Node<Key, Item> *&node) {
+    Node<Key, Item>* tmp;
+    if (node->left == nullptr && node->right == nullptr) {
         delete node;
         node = nullptr;
     }
-    else if (node->hasLeftOnly()) {
-        tmp = node->leftChild;
+    else if (node->left != nullptr && node->right == nullptr) {
+        tmp = node->left;
         delete node;
         node = tmp;
     }
-    else if (node->hasRightOnly()) {
-        tmp = node->rightChild;
+    else if (node->left == nullptr && node->right != nullptr) {
+        tmp = node->right;
         delete node;
         node = tmp;
     }
     else {
-        BSTNode<Key>* parent = tmp;
+        Node<Key, Item>* parent = tmp;
         // inorder successor is leftmost child of the right child
-        tmp = findLeftmost(node->rightChild, parent);
+        tmp = findLeftmost(node->right, parent);
         node->key = tmp->key;
+        node->item = tmp->item;
         removeNode(tmp);
         if (parent != tmp)
-            parent->leftChild = tmp;
+            parent->left = tmp;
     }
 }
 
@@ -143,14 +155,16 @@ void BinarySearchTree<Key>::removeNode(BSTNode<Key> *&node) {
  * @param node
  * @return
  */
-template<typename Key>
-BSTNode<Key> *BinarySearchTree<Key>::findLeftmost(BSTNode<Key> *&node, BSTNode<Key> *&parent) {
-    if (node != nullptr && node->leftChild != nullptr) {
+template<typename Key, typename Item>
+Node<Key, Item>* BinarySearchTree<Key, Item>::findLeftmost(
+        Node<Key, Item> *&node,
+        Node<Key, Item> *&parent) {
+    if (node != nullptr && node->left != nullptr) {
         // if left sub tree has no left child
         // we have found the parent
-        if ( node->leftChild->leftChild == nullptr)
+        if ( node->left->left == nullptr)
             parent = node;
-        return findLeftmost(node->leftChild, parent);
+        return findLeftmost(node->left, parent);
     }
     else
         return node;
@@ -163,20 +177,20 @@ BSTNode<Key> *BinarySearchTree<Key>::findLeftmost(BSTNode<Key> *&node, BSTNode<K
  * @param key
  * @return
  */
-template<typename Key>
-int BinarySearchTree<Key>::retrieve(const Key &key) {
+template<typename Key, typename Item>
+Item BinarySearchTree<Key, Item>::retrieve(const Key &key) {
     return retrieve(key, root);
 }
 
-template<typename Key>
-int BinarySearchTree<Key>::retrieve(const Key &key, BSTNode<Key> *&node) {
+template<typename Key, typename Item>
+Item BinarySearchTree<Key, Item>::retrieve(const Key &key, Node<Key, Item>*& node) {
     if (node != nullptr) {
         if (key < node->key)
-            return retrieve(key, node->leftChild);
+            return retrieve(key, node->left);
         else if (key > node->key)
-            return retrieve(key, node->rightChild);
+            return retrieve(key, node->right);
         else
-            return node->count;
+            return node->item;
     }
     return 0;
 }
@@ -185,14 +199,13 @@ int BinarySearchTree<Key>::retrieve(const Key &key, BSTNode<Key> *&node) {
  * Prints the contents of the tree in sorted order
  * @tparam Key
  */
-template<typename Key>
-void BinarySearchTree<Key>::display() {
+template<typename Key, typename Item>
+void BinarySearchTree<Key, Item>::display() {
     inorderTraverse(&printPair);
 }
 
-template<typename Key>
-template<typename Function>
-void BinarySearchTree<Key>::preorderTraverse(Function visit) {
+template<typename Key, typename Item>
+void BinarySearchTree<Key, Item>::preorderTraverse(void (*visit)(const Key&, const Item&)) {
     preorder(root, visit);
 }
 
@@ -203,64 +216,62 @@ void BinarySearchTree<Key>::preorderTraverse(Function visit) {
  * To use it, pass the address of the function to be applied:
  *      inorderTraverse(&myFunction);
  * Note: myFunction must have the prototype:
- *      void myFunction(const Key&, const Data&);
+ *      void myFunction(const Key&, const Item&);
+ * Therefore, the contents of a node can't be changed using traversals:
+ *      it's read only
  * @tparam Key
  * @tparam Function
  * @param visit
  */
-template<typename Key>
-template<typename Function>
-void BinarySearchTree<Key>::inorderTraverse(Function visit) {
+template<typename Key, typename Item>
+void BinarySearchTree<Key, Item>::inorderTraverse( void(*visit)(const Key&, const Item&) ) {
     inorder(root, visit);
 }
 
-template<typename Key>
-template<typename Function>
-void BinarySearchTree<Key>::postorderTraverse(Function visit) {
+template<typename Key, typename Item>
+void BinarySearchTree<Key, Item>::postorderTraverse(void (*visit)(const Key&, const Item&)) {
     postorder(root, visit);
 }
 
-template<typename Key>
-template<typename Function>
-void BinarySearchTree<Key>::preorder(BSTNode<Key>*& node, Function visit) {
+template<typename Key, typename Item>
+void BinarySearchTree<Key, Item>::preorder(Node<Key, Item>*& node, void (*visit)(const Key&, const Item&)) {
     if (node != nullptr) {
-        visit(node->key, node->count);
-        preorder(node->leftChild, visit);
-        preorder(node->rightChild, visit);
+        visit(node->key, node->item);
+        preorder(node->left, visit);
+        preorder(node->right, visit);
     }
 }
 
-template<typename Key>
-template<typename Function>
-void BinarySearchTree<Key>::inorder(BSTNode<Key>*& node, Function visit) {
+template<typename Key, typename Item>
+void BinarySearchTree<Key, Item>::inorder(Node<Key, Item>*& node, void (*visit)(const Key&, const Item&) ) {
     if (node != nullptr) {
-        inorder(node->leftChild, visit);
-        visit(node->key, node->count);
-        inorder(node->rightChild, visit);
+        inorder(node->left, visit);
+        visit(node->key, node->item);
+        inorder(node->right, visit);
     }
 }
 
-template<typename Key>
-template<typename Function>
-void BinarySearchTree<Key>::postorder(BSTNode<Key>*& node, Function visit) {
+template<typename Key, typename Item>
+void BinarySearchTree<Key, Item>::postorder(Node<Key, Item>*& node, void (*visit)(const Key&, const Item&) ) {
     if (node != nullptr) {
-        postorder(node->leftChild, visit);
-        postorder(node->rightChild, visit);
-        visit(node->key, node->count);
+        postorder(node->left, visit);
+        postorder(node->right, visit);
+        visit(node->key, node->item);
     }
 }
 
-template<typename Key>
-void BinarySearchTree<Key>::printPair(const Key &key, const int &count) {
-    cout << key << " : " << count << endl;
+template<typename Key, typename Item>
+void BinarySearchTree<Key, Item>::printPair(const Key &key, const Item &item) {
+    cout << key << " : " << item << endl;
 }
 
-template<typename Key>
-void BinarySearchTree<Key>::printNode(BSTNode<Key>*& node, ostream &out) const {
+template<typename Key, typename Item>
+void BinarySearchTree<Key, Item>::display(Node<Key, Item>*& node, ostream &out) const {
     if (node != nullptr) {
-        printNode(node->leftChild, out);
-        out << *node << endl;
-        printNode(node->rightChild, out);
+        display(node->left, out);
+        out << node->key << " : " << node->item << endl;
+        display(node->right, out);
     }
 }
+
 
