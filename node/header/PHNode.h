@@ -9,23 +9,23 @@ using namespace std;
 /**
  * PHeap Node with a key item pair
  * @tparam Key will be used for placing the node
- * @tparam Data is the data associated with the key
+ * @tparam Item is the data associated with the key
  * default is void if the user won't specify it
  */
-template<typename Key, typename Data = void>
+template<typename Key, typename Item>
 class PHNode {
-    friend ostream& operator<<(ostream& out, const PHNode<Key, Data>& node) {
+    friend ostream& operator<<(ostream& out, const PHNode<Key, Item>& node) {
         return out << node.key << " : " << node.data;
     };
 private:
     PHNode();
     ~PHNode();
-    PHNode(const PHNode<Key>& node);
+    PHNode(const PHNode<Key, Item>& node);
     PHNode(const Key& key,
-           const Data& data,
-           PHNode<Key, Data>* left = nullptr,
-           PHNode<Key, Data>* right = nullptr,
-           PHNode<Key, Data>* parent = nullptr);
+           const Item& data,
+           PHNode<Key, Item>* left = nullptr,
+           PHNode<Key, Item>* right = nullptr,
+           PHNode<Key, Item>* parent = nullptr);
 
     /**
      * Pointer based implementation of heaps require
@@ -38,11 +38,11 @@ private:
      * due to the left & right ptr and parent ptr attributes
      * e.g. for a heap of size 1 million, we would pay 12MB more
      */
-    PHNode<Key, Data>* left;
-    PHNode<Key, Data>* right;
-    PHNode<Key, Data>* parent;
+    PHNode<Key, Item>* left;
+    PHNode<Key, Item>* right;
+    PHNode<Key, Item>* parent;
     Key key;
-    Data data;
+    Item data;
 
     template <typename> friend class Heap;
 };

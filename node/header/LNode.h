@@ -1,6 +1,8 @@
 /**
  * Author: Zubeyir Bodur
  * Date: 9.1.2021
+ * Descriprion : Class representing a LL Node
+ * Has a data filed called T
  */
 #ifndef ADT_EXERCISE_LNODE_H
 #define ADT_EXERCISE_LNODE_H
