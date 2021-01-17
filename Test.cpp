@@ -188,7 +188,7 @@ int main() {
     //Heap<int> minHeap = Heap<int>(true);
     // it is impossible for user not to choose a data field
     // meaning that key and items are seperate from each other
-    // in an item type
+    // in a pair
     minHeap.insert(12, "King");
     minHeap.insert(8, "White Collar");
     minHeap.insert(3, "General");
@@ -262,6 +262,7 @@ int main() {
     avlTree.insert(5, "bo");
     avlTree.display();
     avlTree.remove(9);
+    cout << endl;
     avlTree.remove(0);
     avlTree.display();
     cout << endl << "END OF AVL TREE TEST" << endl;

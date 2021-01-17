@@ -41,9 +41,9 @@ protected:
     void destroyTree(Node<Key, Item> *& node);
     void copyTree(Node<Key, Item>*& target, Node<Key, Item>*& source);
     void insert(const Key &key, const Item &item, Node<Key, Item> *&node);
-    void remove(const Key& key, Node<Key, Item>*& node);
-    void removeNode(Node<Key, Item>*& node);
-    Node<Key, Item>* findLeftmost(Node<Key, Item>*& node, Node<Key, Item>*& parent);
+    Node<Key, Item>* remove(const Key& key, Node<Key, Item>*& node);
+    Node<Key, Item>* removeNode(Node<Key, Item>*& node);
+    Node<Key, Item>* findLeftmost(Node<Key, Item>*& node);
     Item retrieve(const Key& key, Node<Key, Item>*& node);
     void display(Node<Key, Item>*& node, ostream& out) const;
     void preorder(Node<Key, Item>*& node, void (*)(const Key&, const Item&));

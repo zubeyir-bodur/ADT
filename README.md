@@ -6,16 +6,18 @@ Bunch of abstract data types in C++. They (will) include pointer-based implement
 - Binary Search Tree - complete
 - Heap
   - array based - complete
-  - ptr based - incomplete
+  - pointer based - incomplete
 - Priority Queue - complete 
 - AVL Tree - incomplete
 - 2-3 Tree
 - 2-3-4 Tree
 - Red-Black Tree
-- Table  
+- Table
+  - RB Tree implementation
+  - AVL Tree implementation
 - Hash Table
   - open addressing
-  - seperate chaining
+  - separate chaining
 - Graph
   - adjacency matrix
   - adjacency list

@@ -101,25 +101,35 @@ void BinarySearchTree<Key, Item>::remove(const Key &key) {
  * @param node
  */
 template<typename Key, typename Item>
-void BinarySearchTree<Key, Item>::remove(const Key &key, Node<Key, Item> *&node) {
+Node<Key, Item>* BinarySearchTree<Key, Item>::remove(const Key &key, Node<Key, Item> *&node) {
     if (node != nullptr) {
         if (key < node->key)
-            remove(key, node->left);
+            return remove(key, node->left);
         else if (key > node->key)
-            remove(key, node->right);
+            return remove(key, node->right);
         else
-            removeNode(node);
+            return removeNode(node);
     }
+    return node;
 }
 
 /**
  * Private recursive function that
- * removes a given node in bst
+ * removes a given node in bst and returns
+ * the new value of it
+ * if it's a leaf node it will be null
+ * if it has a single child it will return that child
+ * if it has two children it will return the node,
+ *      thou this won't be used at all
+ *      since the case for two children that
+ *      the node to be removed is
+ *          either a leaf node
+ *          or has only right child
  * @tparam Key
  * @param node
  */
 template<typename Key, typename Item>
-void BinarySearchTree<Key, Item>::removeNode(Node<Key, Item> *&node) {
+Node<Key, Item> * BinarySearchTree<Key, Item>::removeNode(Node<Key, Item> *&node) {
     Node<Key, Item>* tmp;
     if (node->left == nullptr && node->right == nullptr) {
         delete node;
@@ -136,36 +146,29 @@ void BinarySearchTree<Key, Item>::removeNode(Node<Key, Item> *&node) {
         node = tmp;
     }
     else {
-        Node<Key, Item>* parent = tmp;
         // inorder successor is leftmost child of the right child
-        tmp = findLeftmost(node->right, parent);
+        tmp = findLeftmost(node->right);
         node->key = tmp->key;
         node->item = tmp->item;
-        removeNode(tmp);
-        if (parent != tmp)
-            parent->left = tmp;
+        // remove the target and link the right child
+        node->right = removeNode(tmp);
     }
+    return node;
 }
 
 /**
- * Private recursive function that finds the
- * leftmost node & its parent of a bst,
- * where "node" is the root of the bst
+ * Private recursive function that
+ * finds & returns the leftmost node
+ * of a given node
  * @tparam Key
  * @param node
  * @return
  */
 template<typename Key, typename Item>
 Node<Key, Item>* BinarySearchTree<Key, Item>::findLeftmost(
-        Node<Key, Item> *&node,
-        Node<Key, Item> *&parent) {
-    if (node != nullptr && node->left != nullptr) {
-        // if left sub tree has no left child
-        // we have found the parent
-        if ( node->left->left == nullptr)
-            parent = node;
-        return findLeftmost(node->left, parent);
-    }
+        Node<Key, Item> *&node) {
+    if (node != nullptr && node->left != nullptr)
+        return findLeftmost(node->left);
     else
         return node;
 }
@@ -179,7 +182,13 @@ Node<Key, Item>* BinarySearchTree<Key, Item>::findLeftmost(
  */
 template<typename Key, typename Item>
 Item BinarySearchTree<Key, Item>::retrieve(const Key &key) {
-    return retrieve(key, root);
+    try {
+        return retrieve(key, root);
+    }
+    catch (Exception& e) {
+        cout << e.what() << endl;
+        return NULL;
+    }
 }
 
 template<typename Key, typename Item>
@@ -192,7 +201,7 @@ Item BinarySearchTree<Key, Item>::retrieve(const Key &key, Node<Key, Item>*& nod
         else
             return node->item;
     }
-    return 0;
+    throw Exception("Key not found");
 }
 
 /**
@@ -205,7 +214,8 @@ void BinarySearchTree<Key, Item>::display() {
 }
 
 template<typename Key, typename Item>
-void BinarySearchTree<Key, Item>::preorderTraverse(void (*visit)(const Key&, const Item&)) {
+void BinarySearchTree<Key, Item>::preorderTraverse(
+        void (*visit)(const Key&, const Item&)) {
     preorder(root, visit);
 }
 
