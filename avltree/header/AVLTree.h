@@ -10,7 +10,7 @@
 /**
  * AVL Tree is a BST whose balance
  * is maintained by rotation operations
- * so we could make use of inheritance
+ * so we can make use of inheritance
  * @tparam Key
  * @tparam Item
  */
@@ -24,8 +24,6 @@ class AVLTree : public BinarySearchTree<Key, Item> {
 public:
     AVLTree();
     AVLTree(const AVLTree<Key, Item>& avlTree);
-    void insert(const Key& key, const Item& item) override;
-    void remove(const Key& key) override;
 
     // static functions for traversing the tree
     static void printPair(const Key& key, const Item& item);
@@ -33,5 +31,10 @@ public:
     AVLTree<Key, Item>& operator=(const AVLTree<Key, Item>& rvalue);
 private:
     // add helper functions
+    void insertNode(const Key &key, const Item &item, Node<Key, Item> *&node) override;
+    void removeNode(Node<Key, Item>*& node) override;
+    void restoreBalance(Node<Key, Item>*& node);
+    void leftRotate(Node<Key, Item>*& node);
+    void rightRotate(Node<Key, Item>*& node);
 };
 #endif

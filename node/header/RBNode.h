@@ -19,7 +19,9 @@ enum Color {
 };
 template<typename Key, typename Item>
 struct RBNode : Node {
-    RBNode* parent;
+    // it is possible to use a parent pointer
+    // for easier traversal in deletion, but it's not obligatory
+    //RBNode* parent;
     Color leftC;
     Color rightC;
 };

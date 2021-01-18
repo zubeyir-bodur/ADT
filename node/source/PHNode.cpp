@@ -16,12 +16,12 @@ PHNode<Key, Item>::PHNode(const PHNode<Key, Item> &node) {
     right = nullptr;
     parent = nullptr;
     key = node.key;
-    data = node.data;
+    item = node.item;
 }
 
 template<typename Key, typename Item>
 PHNode<Key, Item>::PHNode(const Key &key,
-                        const Item &data,
+                        const Item &item,
                         PHNode<Key, Item> *left,
                         PHNode<Key, Item> *right,
                         PHNode<Key, Item>* parent) {
@@ -29,7 +29,7 @@ PHNode<Key, Item>::PHNode(const Key &key,
     this->right = right;
     this->parent = parent;
     this->key = key;
-    this->data = data;
+    this->item = item;
 }
 
 

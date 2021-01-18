@@ -9,13 +9,12 @@ using namespace std;
 /**
  * PHeap Node with a key item pair
  * @tparam Key will be used for placing the node
- * @tparam Item is the data associated with the key
- * default is void if the user won't specify it
+ * @tparam Item is the item associated with the key
  */
 template<typename Key, typename Item>
 class PHNode {
     friend ostream& operator<<(ostream& out, const PHNode<Key, Item>& node) {
-        return out << node.key << " : " << node.data;
+        return out << node.key << " : " << node.item;
     };
 private:
     PHNode();
@@ -32,7 +31,7 @@ private:
      * pointers for left & right child AND parent
      *
      * This is a trade off where we choose indefinite heap size
-     * over consuming much more data for each item
+     * over consuming much more item for each item
      *
      * For each node, the size will be 4 * 3 = 12 bytes more
      * due to the left & right ptr and parent ptr attributes
@@ -42,7 +41,7 @@ private:
     PHNode<Key, Item>* right;
     PHNode<Key, Item>* parent;
     Key key;
-    Item data;
+    Item item;
 
     template <typename> friend class Heap;
 };

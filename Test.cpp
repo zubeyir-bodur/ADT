@@ -104,9 +104,7 @@ int main() {
     // TEST OF BST
     cout << endl << "BEGINNING OF BST TEST" << endl;
     BinarySearchTree<int, string> searchTree = BinarySearchTree<int, string>();
-    cout << "does display work" << endl;
     searchTree.display();
-    cout << "display works" << endl;
     searchTree.insert(38, "my");
     cout << searchTree << endl;
     searchTree.insert(27, "name");
@@ -142,6 +140,10 @@ int main() {
     searchTree.insert(50, "goodbye"); // should remain after removals
     cout << searchTree << endl;
     searchTree.insert(91, "my friend");
+    cout << "size : " << searchTree.getSize() << endl;
+    cout << "balance factor : " << searchTree.getBalanceFactor() << endl;
+    cout << "height: " << searchTree.getHeight() << endl;
+    cout << "is balanced : " << (searchTree.isBalanced() ? "Yes" : "No") << endl;
     cout << "END OF INSERTION" << endl << endl;
     cout << searchTree << endl;
     searchTree.remove(38);
@@ -186,7 +188,7 @@ int main() {
     cout << endl << "BEGINNING OF HEAP TEST" << endl;
     Heap<int, string> minHeap = Heap<int, string>(true);
     //Heap<int> minHeap = Heap<int>(true);
-    // it is impossible for user not to choose a data field
+    // it is impossible for user not to choose a item field
     // meaning that key and items are seperate from each other
     // in a pair
     minHeap.insert(12, "King");
@@ -257,13 +259,24 @@ int main() {
     cout << endl << "BEGINNING OF AVL TREE TEST" << endl;
     auto avlTree = AVLTree<int, string>();
     avlTree.display();
-    avlTree.insert(9, "bo");
-    avlTree.insert(-2, "bo");
-    avlTree.insert(5, "bo");
+    avlTree.insert(50, "bo");
+    avlTree.insert(70, "bo");
+    avlTree.insert(90, "bo");
+    avlTree.insert(115, "bo");
+    avlTree.insert(95, "bo");
+    avlTree.insert(100, "bo");
+    avlTree.insert(80, "bo");
+    avlTree.insert(125, "bo");
+    avlTree.insert(105, "bo");
+    avlTree.insert(110, "bo");
+    avlTree.insert(140, "bo");
     avlTree.display();
-    avlTree.remove(9);
+    avlTree.remove(95);
     cout << endl;
-    avlTree.remove(0);
+    avlTree.remove(125);
+    avlTree.display();
+    cout << endl;
+    avlTree.remove(105);
     avlTree.display();
     cout << endl << "END OF AVL TREE TEST" << endl;
 }

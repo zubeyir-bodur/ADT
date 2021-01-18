@@ -20,6 +20,9 @@ public:
     BinarySearchTree(const BinarySearchTree<Key, Item>& bst);
     bool isEmpty() const;
     int getSize() const;
+    int getHeight() const;
+    int getBalanceFactor() const;
+    bool isBalanced() const;
     virtual void insert(const Key &key, const Item &item);
     virtual void remove(const Key& key);
     Item retrieve(const Key& key);
@@ -37,17 +40,21 @@ protected:
     // properties
     Node<Key, Item>* root;
 
-    // private helper functions
+    // protected helper functions
     void destroyTree(Node<Key, Item> *& node);
     void copyTree(Node<Key, Item>*& target, Node<Key, Item>*& source);
-    void insert(const Key &key, const Item &item, Node<Key, Item> *&node);
-    Node<Key, Item>* remove(const Key& key, Node<Key, Item>*& node);
-    Node<Key, Item>* removeNode(Node<Key, Item>*& node);
+    int getSize(Node<Key, Item> *& node) const;
+    int getHeight(Node<Key, Item> *& node) const;
+    int getBalanceFactor(Node<Key, Item> *& node) const;
+    virtual void insertNode(const Key &key, const Item &item, Node<Key, Item> *&node);
+    virtual void removeFind(const Key& key, Node<Key, Item>*& node);
+    virtual void removeNode(Node<Key, Item>*& node);
     Node<Key, Item>* findLeftmost(Node<Key, Item>*& node);
+    Node<Key, Item>* findRightmost(Node<Key, Item>*& node);
     Item retrieve(const Key& key, Node<Key, Item>*& node);
     void display(Node<Key, Item>*& node, ostream& out) const;
-    void preorder(Node<Key, Item>*& node, void (*)(const Key&, const Item&));
-    void inorder(Node<Key, Item>*& node, void (*)(const Key&, const Item&));
-    void postorder(Node<Key, Item>*& node, void (*)(const Key&, const Item&));
+    void preorder(Node<Key, Item>*& node, void (*visit)(const Key&, const Item&));
+    void inorder(Node<Key, Item>*& node, void (*visit)(const Key&, const Item&));
+    void postorder(Node<Key, Item>*& node, void (*visit)(const Key&, const Item&));
 };
 #endif

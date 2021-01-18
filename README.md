@@ -1,5 +1,5 @@
 # Abstract Data Types
-Bunch of abstract data types in C++. They (will) include pointer-based implementation of the following:
+Bunch of abstract item types in C++. They (will) include pointer-based implementation of the following:
 - Linked List - complete
 - Stack - complete
 - Queue - complete
@@ -8,7 +8,7 @@ Bunch of abstract data types in C++. They (will) include pointer-based implement
   - array based - complete
   - pointer based - incomplete
 - Priority Queue - complete 
-- AVL Tree - incomplete
+- AVL Tree - complete
 - 2-3 Tree
 - 2-3-4 Tree
 - Red-Black Tree

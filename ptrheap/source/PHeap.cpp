@@ -70,28 +70,28 @@ void PHeap<Key, Data>::insert(PHNode<Key, Data> *&node, const Key &key, const Da
 //        if (node->index == (size - 1) / 2) { // found the parent node of the insertion
 //            // find which child  to insert
 //            if (node->left == nullptr)
-//                node->left = new HNode<Key, Item>(key, data, size);
+//                node->left = new HNode<Key, Item>(key, item, size);
 //            else
-//                node->right = new HNode<Key, Item>(key, data, size);
+//                node->right = new HNode<Key, Item>(key, item, size);
 //            size++;
 //        }
 //        else {
 //            if (size)
-//            insert(node->left, key, data);
-//            insert(node->right, key, data);
+//            insert(node->left, key, item);
+//            insert(node->right, key, item);
 //        }
 //    }
 //            if (node->getLeftIndex() == size) {
-//                node->left = new HNode<Key, Item>(key, data, size);
+//                node->left = new HNode<Key, Item>(key, item, size);
 //                size++;
 //            }
 //            else if (node->getRightIndex() == size) {
-//                node->right = new HNode<Key, Item>(key, data, size);
+//                node->right = new HNode<Key, Item>(key, item, size);
 //                size++;
 //            }
 //            else {
-//                insert(node->left, key, data);
-//                insert(node->right, key, data);
+//                insert(node->left, key, item);
+//                insert(node->right, key, item);
 //            }
 }
 
@@ -103,7 +103,7 @@ void PHeap<Key, Data>::insert(PHNode<Key, Data> *&node, const Key &key, const Da
  */
 template<typename Key, typename Data>
 Data PHeap<Key, Data>::extract() {
-    Data data = root->data;
+    Data data = root->item;
     remove();
     return data;
 }

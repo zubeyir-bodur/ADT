@@ -60,16 +60,72 @@ bool BinarySearchTree<Key, Item>::isEmpty() const {
 
 template<typename Key, typename Item>
 int BinarySearchTree<Key, Item>::getSize() const {
+    Node<Key, Item>* tmp = root;
+    return getSize(tmp);
+}
+
+template<typename Key, typename Item>
+int BinarySearchTree<Key, Item>::getSize(Node<Key, Item> *&node) const {
+    if (node == nullptr)
+        return 0;
+    else
+        return getSize(node->left) + 1 + getSize(node->right);
+}
+
+template<typename Key, typename Item>
+int BinarySearchTree<Key, Item>::getHeight() const {
+    Node<Key, Item>* tmp = root;
+    return getHeight(tmp);
+}
+
+template<typename Key, typename Item>
+int BinarySearchTree<Key, Item>::getHeight(Node<Key, Item> *&node) const {
+    if (node == nullptr)
+        return 0;
+    else
+        return 1 + max(getHeight(node->left), getHeight(node->right));
+}
+
+/**
+ * If the balance factor is larger than one,
+ * the tree is not balanced
+ * @tparam Key
+ * @tparam Item
+ * @return
+ */
+template<typename Key, typename Item>
+bool BinarySearchTree<Key, Item>::isBalanced() const {
+    int balanceFactor = getBalanceFactor();
+    return (balanceFactor < 1) && (balanceFactor > -1);
+}
+
+/**
+ * If the value is larger than 1 it's right heavy
+ * If the value is smaller than -1 it's left heavy
+ * @tparam Key
+ * @tparam Item
+ * @return
+ */
+template<typename Key, typename Item>
+int BinarySearchTree<Key, Item>::getBalanceFactor() const {
+    Node<Key, Item>* tmp = root;
+    return getBalanceFactor(tmp);
+}
+
+template<typename Key, typename Item>
+int BinarySearchTree<Key, Item>::getBalanceFactor(Node<Key, Item> *&node) const {
+    if (node != nullptr)
+        return getHeight(node->right) - getHeight(node->left);
     return 0;
 }
 
 template<typename Key, typename Item>
 void BinarySearchTree<Key, Item>::insert(const Key &key, const Item &item) {
-    insert(key, item, root);
+    insertNode(key, item, root);
 }
 
 template<typename Key, typename Item>
-void BinarySearchTree<Key, Item>::insert(const Key &key, const Item &item, Node<Key, Item> *&node) {
+void BinarySearchTree<Key, Item>::insertNode(const Key &key, const Item &item, Node<Key, Item> *&node) {
     if (node == nullptr) {
         node = new Node<Key, Item>;
         node->key = key;
@@ -78,9 +134,9 @@ void BinarySearchTree<Key, Item>::insert(const Key &key, const Item &item, Node<
         node->right = nullptr;
     }
     else if (key < node->key)
-        insert(key, item, node->left);
+        insertNode(key, item, node->left);
     else if (key > node->key)
-        insert(key, item, node->right);
+        insertNode(key, item, node->right);
 }
 
 /**
@@ -90,7 +146,7 @@ void BinarySearchTree<Key, Item>::insert(const Key &key, const Item &item, Node<
  */
 template<typename Key, typename Item>
 void BinarySearchTree<Key, Item>::remove(const Key &key) {
-    remove(key, root);
+    removeFind(key, root);
 }
 
 /**
@@ -101,35 +157,25 @@ void BinarySearchTree<Key, Item>::remove(const Key &key) {
  * @param node
  */
 template<typename Key, typename Item>
-Node<Key, Item>* BinarySearchTree<Key, Item>::remove(const Key &key, Node<Key, Item> *&node) {
+void BinarySearchTree<Key, Item>::removeFind(const Key &key, Node<Key, Item> *&node) {
     if (node != nullptr) {
         if (key < node->key)
-            return remove(key, node->left);
+            removeFind(key, node->left);
         else if (key > node->key)
-            return remove(key, node->right);
+            removeFind(key, node->right);
         else
-            return removeNode(node);
+            removeNode(node);
     }
-    return node;
 }
 
 /**
  * Private recursive function that
- * removes a given node in bst and returns
- * the new value of it
- * if it's a leaf node it will be null
- * if it has a single child it will return that child
- * if it has two children it will return the node,
- *      thou this won't be used at all
- *      since the case for two children that
- *      the node to be removed is
- *          either a leaf node
- *          or has only right child
+ * removes a given node in bst
  * @tparam Key
  * @param node
  */
 template<typename Key, typename Item>
-Node<Key, Item> * BinarySearchTree<Key, Item>::removeNode(Node<Key, Item> *&node) {
+void BinarySearchTree<Key, Item>::removeNode(Node<Key, Item> *&node) {
     Node<Key, Item>* tmp;
     if (node->left == nullptr && node->right == nullptr) {
         delete node;
@@ -150,10 +196,9 @@ Node<Key, Item> * BinarySearchTree<Key, Item>::removeNode(Node<Key, Item> *&node
         tmp = findLeftmost(node->right);
         node->key = tmp->key;
         node->item = tmp->item;
-        // remove the target and link the right child
-        node->right = removeNode(tmp);
+        // remove the inorder successor
+        removeFind(tmp->key, node->right);
     }
-    return node;
 }
 
 /**
@@ -165,30 +210,31 @@ Node<Key, Item> * BinarySearchTree<Key, Item>::removeNode(Node<Key, Item> *&node
  * @return
  */
 template<typename Key, typename Item>
-Node<Key, Item>* BinarySearchTree<Key, Item>::findLeftmost(
-        Node<Key, Item> *&node) {
+Node<Key, Item>* BinarySearchTree<Key, Item>::findLeftmost(Node<Key, Item> *&node) {
     if (node != nullptr && node->left != nullptr)
         return findLeftmost(node->left);
     else
         return node;
 }
 
+template<typename Key, typename Item>
+Node<Key, Item> *BinarySearchTree<Key, Item>::findRightmost(Node<Key, Item> *&node) {
+    if (node != nullptr && node->right != nullptr)
+        return findRightmost(node->right);
+    else
+        return node;
+}
+
 /**
- * Since we don't have a data field in this BST
- * retrieve will just output the count of a key
+ * Find the Item associated with the given Key
+ * Throw an exception if the key DNE
  * @tparam Key
  * @param key
  * @return
  */
 template<typename Key, typename Item>
 Item BinarySearchTree<Key, Item>::retrieve(const Key &key) {
-    try {
-        return retrieve(key, root);
-    }
-    catch (Exception& e) {
-        cout << e.what() << endl;
-        return NULL;
-    }
+    return retrieve(key, root);
 }
 
 template<typename Key, typename Item>
@@ -222,7 +268,7 @@ void BinarySearchTree<Key, Item>::preorderTraverse(
 /**
  * Traverses the BTS in inorder traversal
  * Applies visit function for each node like the following:
- *      visit(node->key, node->data)
+ *      visit(node->key, node->item)
  * To use it, pass the address of the function to be applied:
  *      inorderTraverse(&myFunction);
  * Note: myFunction must have the prototype:
@@ -283,5 +329,3 @@ void BinarySearchTree<Key, Item>::display(Node<Key, Item>*& node, ostream &out) 
         display(node->right, out);
     }
 }
-
-
