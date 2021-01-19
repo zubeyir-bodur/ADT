@@ -233,8 +233,9 @@ Node<Key, Item> *BinarySearchTree<Key, Item>::findRightmost(Node<Key, Item> *&no
  * @return
  */
 template<typename Key, typename Item>
-Item BinarySearchTree<Key, Item>::retrieve(const Key &key) {
-    return retrieve(key, root);
+Item BinarySearchTree<Key, Item>::retrieve(const Key &key) const {
+    Node<Key, Item>* tmp = root;
+    return retrieve(key, tmp);
 }
 
 template<typename Key, typename Item>
@@ -246,6 +247,24 @@ Item BinarySearchTree<Key, Item>::retrieve(const Key &key, Node<Key, Item>*& nod
             return retrieve(key, node->right);
         else
             return node->item;
+    }
+    throw Exception("Key not found");
+}
+
+template<typename Key, typename Item>
+void BinarySearchTree<Key, Item>::set(const Key &key, const Item &item) {
+    set(key, item, root);
+}
+
+template<typename Key, typename Item>
+void BinarySearchTree<Key, Item>::set(const Key &key, const Item &item, Node<Key, Item>*& node) {
+    if (node != nullptr) {
+        if (key < node->key)
+            set(key, item, node->left);
+        else if (key > node->key)
+            set(key, item, node->right);
+        else
+            node->item = item;
     }
     throw Exception("Key not found");
 }
@@ -329,3 +348,4 @@ void BinarySearchTree<Key, Item>::display(Node<Key, Item>*& node, ostream &out) 
         display(node->right, out);
     }
 }
+

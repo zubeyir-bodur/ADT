@@ -7,8 +7,10 @@
 #define ADT_EXERCISE_BINARYSEARCHTREE_H
 #include "exception/header/Exception.h"
 #include "../../node/header/Node.h"
+
 template<typename Key, typename Item>
 class BinarySearchTree {
+    typedef  void (*Function)(const Key&, const Item&);
     friend ostream& operator<<(ostream& out, const BinarySearchTree<Key, Item>& bst) {
         Node<Key, Item>* tmp = bst.root;
         bst.display(tmp, out);
@@ -25,11 +27,12 @@ public:
     bool isBalanced() const;
     virtual void insert(const Key &key, const Item &item);
     virtual void remove(const Key& key);
-    Item retrieve(const Key& key);
+    Item retrieve(const Key& key) const;
+    void set(const Key& key, const Item& item);
     void display();
-    void preorderTraverse(void (*)(const Key&, const Item&));
-    void inorderTraverse(void (*)(const Key&, const Item&));
-    void postorderTraverse(void (*)(const Key&, const Item&));
+    void preorderTraverse(Function visit);
+    void inorderTraverse(Function visit);
+    void postorderTraverse(Function visit);
 
     // static functions for traversing the tree
     static void printPair(const Key& key, const Item& item);
@@ -52,9 +55,10 @@ protected:
     Node<Key, Item>* findLeftmost(Node<Key, Item>*& node);
     Node<Key, Item>* findRightmost(Node<Key, Item>*& node);
     Item retrieve(const Key& key, Node<Key, Item>*& node);
+    void set(const Key& key, const Item& item, Node<Key, Item>*& node);
     void display(Node<Key, Item>*& node, ostream& out) const;
-    void preorder(Node<Key, Item>*& node, void (*visit)(const Key&, const Item&));
-    void inorder(Node<Key, Item>*& node, void (*visit)(const Key&, const Item&));
-    void postorder(Node<Key, Item>*& node, void (*visit)(const Key&, const Item&));
+    void preorder(Node<Key, Item>*& node, Function visit);
+    void inorder(Node<Key, Item>*& node, Function visit);
+    void postorder(Node<Key, Item>*& node, Function visit);
 };
 #endif

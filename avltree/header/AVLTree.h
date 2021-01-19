@@ -18,7 +18,7 @@ template<typename Key, typename Item>
 class AVLTree : public BinarySearchTree<Key, Item> {
     using super = BinarySearchTree<Key, Item>;
     friend ostream& operator<<(ostream& out, const AVLTree<Key, Item>& avlTree) {
-        // TODO
+        avlTree.display(super::root, out);
         return out;
     };
 public:

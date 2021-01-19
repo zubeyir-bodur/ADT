@@ -13,8 +13,8 @@
 using namespace std;
 template<typename Key, typename Item>
 struct Node {
-    Node* left;
-    Node* right;
+    Node<Key, Item>* left;
+    Node<Key, Item>* right;
     Key key;
     Item item;
 };

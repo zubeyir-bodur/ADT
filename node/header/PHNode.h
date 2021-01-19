@@ -31,7 +31,7 @@ private:
      * pointers for left & right child AND parent
      *
      * This is a trade off where we choose indefinite heap size
-     * over consuming much more item for each item
+     * over consuming much more data for each item
      *
      * For each node, the size will be 4 * 3 = 12 bytes more
      * due to the left & right ptr and parent ptr attributes

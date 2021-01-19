@@ -9,12 +9,12 @@ Bunch of abstract item types in C++. They (will) include pointer-based implement
   - pointer based - incomplete
 - Priority Queue - complete 
 - AVL Tree - complete
-- 2-3 Tree
-- 2-3-4 Tree
-- Red-Black Tree
+- 2-3 Tree - incomplete
+- 2-3-4 Tree - incomplete
+- Red-Black Tree - incomplete
 - Table
-  - RB Tree implementation
-  - AVL Tree implementation
+  - RB Tree implementation - incomplete
+  - AVL Tree implementation - complete
 - Hash Table
   - open addressing
   - separate chaining

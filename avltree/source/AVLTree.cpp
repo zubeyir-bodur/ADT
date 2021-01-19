@@ -33,7 +33,7 @@ void AVLTree<Key, Item>::removeNode(Node<Key, Item> *&node) {
 }
 /**
  * Restores the balance of a tree with given root
- * Complexity: O(h), where h is appx. log(n)
+ * Complexity: O(n), not O(logn), see the code below
  * This code can be referred to the source:
  * https://www.geeksforgeeks.org/avl-tree-set-2-deletion/
  * @tparam Key
@@ -49,6 +49,11 @@ void AVLTree<Key, Item>::restoreBalance(Node<Key, Item>*& node) {
         // if positive, the node is right heavy
         // if negative, the node is left heavy
         // if diff is larger than 1, it's unbalanced
+        //
+        // if the nodes stored height, the time complexity for insertion
+        // and deletion would be O(logn). However, we need to compute the
+        // balance factor for a root, where we need to compute height for each
+        // children, which is O(n).
         int balance = super::getBalanceFactor(node);
         int leftBalance = super::getBalanceFactor(node->left);
         int rightBalance = super::getBalanceFactor(node->right);
