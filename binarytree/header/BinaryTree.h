@@ -6,7 +6,6 @@ class BinaryTree {
 public:
     using bt = BinaryTree<Item>;
     using btn = BTNode<Item>;
-
     typedef void(*Function)(const Item&);
 
     BinaryTree();
