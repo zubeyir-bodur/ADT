@@ -25,4 +25,5 @@ Bunch of abstract item types in C++. The following are implemented from the scra
   - adjacency list :x:
 
 ##Important Note
+
 To be able to use this "library", C++17 or above is required. To be able to run the test file, CMake can be used. For that, CMake 3.17 or above is required.
