@@ -2,6 +2,7 @@
  * Author: Zubeyir Bodur
  * Date: 10.1.2021
  */
+#include "binarytree/source/BinaryTree.cpp"
 #include "linkedlist/source/LinkedList.cpp"
 #include "queue/source/Queue.cpp"
 #include "stack/source/Stack.cpp"
@@ -279,4 +280,43 @@ int main() {
     avlTree.remove(105);
     avlTree.display();
     cout << endl << "END OF AVL TREE TEST" << endl;
+
+    // TEST OF BINARY TREE
+    cout << endl << "BEGINNING OF BINARY TREE TEST" << endl;
+    BinaryTree<int> t1 = BinaryTree<int>( 1 );
+    BinaryTree<int> t2( 2 );
+    BinaryTree<int> t3( 3 );
+    BinaryTree<int> t4( 4 );
+    BinaryTree<int> t5( 5 );
+    BinaryTree<int> t6( 6 );
+    BinaryTree<int> t7( 7 );
+    BinaryTree<int> t9( 9 );
+    cout << "isBalanced t1 : " << (t1.isBalanced() ? "Yes" : "No") << endl;
+    cout << "isBalanced t2 : " << (t2.isBalanced() ? "Yes" : "No") << endl;
+    cout << "isBalanced t3 : " << (t3.isBalanced() ? "Yes" : "No") << endl;
+    cout << "isBalanced t4 : " << (t4.isBalanced() ? "Yes" : "No") << endl;
+    cout << "isBalanced t5 : " << (t5.isBalanced() ? "Yes" : "No") << endl;
+    cout << "isBalanced t6 : " << (t6.isBalanced() ? "Yes" : "No") << endl;
+    cout << "isBalanced t7 : " << (t7.isBalanced() ? "Yes" : "No") << endl;
+    t4.attachLeftSubtree( t5 );
+    cout << "isBalanced t4 : " << (t4.isBalanced() ? "Yes" : "No") << endl;
+    t4.attachRightSubtree( t6 );
+    cout << "isBalanced t4 : " << (t4.isBalanced() ? "Yes" : "No") << endl;
+    t2.attachRightSubtree( t4 );
+    cout << "isBalanced t2 : " << (t2.isBalanced() ? "Yes" : "No") << endl;
+    t1.attachLeftSubtree( t2 );
+    t3.attachRightSubtree( t7 );
+    cout << "isBalanced t3 : " << (t3.isBalanced() ? "Yes" : "No") << endl;
+    t1.attachRightSubtree( t3 );
+    t1.inorderTraverse(&BinaryTree<int>::print);
+    cout << endl << "t1 size : " << t1.size() << endl;
+    cout << "t1 is empty : " << (t1.isEmpty() ? "Yes" : "No")<< endl;
+    cout << "isBalanced t1 : " << (t1.isBalanced() ? "Yes" : "No") << endl;
+    cout << "has path 1 to 7 : " << (t1.hasPath(1, 7) ? "Yes" : "No") << endl;
+    cout << "has path 3 to 7 : " << (t1.hasPath(3, 7) ? "Yes" : "No") << endl;
+    cout << "has path 7 to 7 : " << (t1.hasPath(7, 7) ? "Yes" : "No") << endl;
+    cout << "has path 6 to 2 : " << (t1.hasPath(6, 2) ? "Yes" : "No") << endl;
+    cout << "has path 6 to 7 : " << (t1.hasPath(6, 7) ? "Yes" : "No") << endl;
+    cout << "has path 2 to 4 : " << (t1.hasPath(2, 4) ? "Yes" : "No") << endl;
+    cout << endl << "END OF BINARY TREE TEST" << endl;
 }

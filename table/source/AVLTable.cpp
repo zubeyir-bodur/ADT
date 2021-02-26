@@ -54,4 +54,3 @@ template<typename Key, typename Item>
 void AVLTable<Key, Item>::setSize(const int &size) {
     this->sizesize = size;
 }
-

@@ -1,0 +1,66 @@
+cmake_minimum_required(VERSION 3.17)
+project(ADT)
+
+set(CMAKE_CXX_STANDARD 17)
+
+include_directories(.)
+include_directories(avltree/header)
+include_directories(avltree/source)
+include_directories(binarytree/header)
+include_directories(binarytree/source)
+include_directories(bst/header)
+include_directories(bst/source)
+include_directories(exception/header)
+include_directories(heap/header)
+include_directories(heap/source)
+include_directories(linkedlist/header)
+include_directories(linkedlist/source)
+include_directories(node/header)
+include_directories(node/source)
+include_directories(priorityq/header)
+include_directories(priorityq/source)
+include_directories(ptrheap/header)
+include_directories(ptrheap/source)
+include_directories(queue/header)
+include_directories(queue/source)
+include_directories(rbtree/header)
+include_directories(rbtree/source)
+include_directories(stack/header)
+include_directories(stack/source)
+include_directories(table/header)
+include_directories(table/source)
+
+add_executable(ADT
+        bst/header/BinarySearchTree.h
+        bst/source/BinarySearchTree.cpp
+        linkedlist/header/LinkedList.h
+        linkedlist/source/LinkedList.cpp
+        queue/header/Queue.h
+        queue/source/Queue.cpp
+        stack/header/Stack.h
+        stack/source/Stack.cpp
+        exception/header/Exception.h
+        Test.cpp
+        ptrheap/header/PHeap.h
+        ptrheap/source/PHeap.cpp
+        heap/header/Heap.h
+        heap/source/Heap.cpp
+        priorityq/header/PriorityQueue.h
+        priorityq/source/PriorityQueue.cpp
+        avltree/header/AVLTree.h
+        avltree/source/AVLTree.cpp
+        node/header/PHNode.h
+        node/source/PHNode.cpp
+        node/header/LNode.h
+        node/source/LNode.cpp
+        node/header/Node.h
+        node/header/RBNode.h
+        node/header/ThreeNode.h
+        node/header/FourNode.h
+        node/header/BTNode.h
+        rbtree/header/RBTree.h
+        rbtree/source/RBTree.cpp
+        table/header/AVLTable.h
+        table/source/AVLTable.cpp
+        binarytree/header/BinaryTree.h
+        binarytree/source/BinaryTree.cpp)
