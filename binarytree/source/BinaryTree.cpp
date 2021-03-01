@@ -7,7 +7,7 @@ BinaryTree<Item>::BinaryTree() {
 
 template<typename Item>
 BinaryTree<Item>::BinaryTree(const BinaryTree<Item> &copy) {
-    bt::copyTree(root, copy.root);
+    copyTree(root, copy.root);
 }
 
 template<typename Item>
@@ -217,7 +217,7 @@ bool BinaryTree<Item>::hasPath(btn *&node, int start, int end) {
 }
 
 template<typename Item>
-void BinaryTree<Item>::copyTree(btn *&target, const btn *&source) {
+void BinaryTree<Item>::copyTree(btn *&target, btn *&source) {
     if (source) {
         target = new btn;
         target->item = source->item;
@@ -274,10 +274,30 @@ bool BinaryTree<Item>::isBalanced(btn*& node) {
 
 template<typename Item>
 bool BinaryTree<Item>::isBST() {
-    return false;
+    return bt::isBST(root, INT_MIN, INT_MAX);
 }
 
 template<typename Item>
-bool BinaryTree<Item>::isBST(btn *&node) {
-    return false;
+bool BinaryTree<Item>::isBST(btn *&node, int min, int max) {
+    // an empty tree is always a BST
+    if (!node)
+        return true;
+    return (node->item > min && node->item < max)
+           && isBST(node->left, min, node->item)
+           && isBST(node->right, node->item, max);
+}
+
+template<typename Item>
+void BinaryTree<Item>::display() {
+    inorderTraverse(&print);
+    cout << endl;
+}
+
+template<typename Item>
+void BinaryTree<Item>::display(ostream &out, btn*& node) {
+    if (node) {
+        display(out, node->left);
+        out << node->item << " ";
+        display(out, node->right);
+    }
 }

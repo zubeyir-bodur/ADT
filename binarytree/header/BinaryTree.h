@@ -3,6 +3,10 @@
 #include "../../node/header/BTNode.h"
 template<typename Item>
 class BinaryTree {
+    friend ostream& operator<<(ostream& out, BinaryTree<Item>& tree) {
+        BinaryTree<Item>::display(out, tree.root);
+        return out;
+    }
 public:
     using bt = BinaryTree<Item>;
     using btn = BTNode<Item>;
@@ -32,12 +36,14 @@ public:
     bool isBalanced();
     int height();
     bool isBST();
+    void display();
 
     static void print(const Item&);
+
 private:
     btn* root;
 
-    static void copyTree(btn*& target, const btn*& source);
+    void copyTree(btn*& target, btn*& source);
     static void destroyTree(btn*& target);
     static int size(btn*& node);
     static void preorder(btn*&, Function);
@@ -46,6 +52,7 @@ private:
     static bool hasPath(btn*& node, int start, int end);
     static bool isBalanced(btn*& node);
     static int height(btn*& node);
-    static bool isBST(btn*& node);
+    static bool isBST(btn *&node, int min, int max);
+    static void display(ostream& out, btn*& node);
 };
 #endif

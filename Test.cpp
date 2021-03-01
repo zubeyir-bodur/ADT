@@ -283,6 +283,15 @@ int main() {
 
     // TEST OF BINARY TREE
     cout << endl << "BEGINNING OF BINARY TREE TEST" << endl;
+    /* Build the following binary tree
+                1
+              /   \
+             2     3
+              \      \
+               4      7
+              /  \
+             5    6
+     */
     BinaryTree<int> t1 = BinaryTree<int>( 1 );
     BinaryTree<int> t2( 2 );
     BinaryTree<int> t3( 3 );
@@ -318,5 +327,55 @@ int main() {
     cout << "has path 6 to 2 : " << (t1.hasPath(6, 2) ? "Yes" : "No") << endl;
     cout << "has path 6 to 7 : " << (t1.hasPath(6, 7) ? "Yes" : "No") << endl;
     cout << "has path 2 to 4 : " << (t1.hasPath(2, 4) ? "Yes" : "No") << endl;
+
+    /* Build the following binary tree
+                                    root
+               _____________________38_________
+              /                                \
+       _____27_________                        _67_____________
+      /                \                      /                \
+    15_            _____32_____            _54         _________107
+       \          /            \          /           /
+        29      28_            _37      48          87_____
+                   \          /                            \
+                    29      36                             _98
+                                                          /
+                                                        81
+     */
+    using btint = BinaryTree<int>;
+    btint t38(38);
+    btint t27(27);
+    btint t15(15);
+    btint t29_left(29);
+    btint t32(32);
+    btint t28(28);
+    btint t29_right(29);
+    btint t37(37);
+    btint t36(36);
+    btint t67(67);
+    btint t54(54);
+    btint t48(48);
+    btint t107(107);
+    btint t87(87);
+    btint t98(98);
+    btint t81(81);
+    t98.attachLeftSubtree(t81);
+    t87.attachRightSubtree(t98);
+    t107.attachLeftSubtree(t87);
+    t67.attachRightSubtree(t107);
+    t54.attachLeftSubtree(t48);
+    t67.attachLeftSubtree(t54);
+    t38.attachRightSubtree(t67);
+    t37.attachLeftSubtree(t36);
+    t28.attachRightSubtree(t29_right);
+    t32.attachLeftSubtree(t28);
+    t32.attachRightSubtree(t37);
+    t15.attachRightSubtree(t29_left);
+    t27.attachLeftSubtree(t15);
+    t27.attachRightSubtree(t32);
+    t38.attachLeftSubtree(t27);
+    cout << t38 << endl;
+    // check if this binary search tree is a BST
+    cout << "t38 isBST : " << (t38.isBST() ? "Yes" : "No") << endl;
     cout << endl << "END OF BINARY TREE TEST" << endl;
 }
